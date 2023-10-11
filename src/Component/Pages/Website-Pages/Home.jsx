@@ -3,6 +3,10 @@ import React from 'react'
 const Home = () => {
   return (
     <>
+        {/* Page Heading */}
+        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 className="h3 mb-0 text-gray-800">Home Page</h1>
+        </div>
         {/* Home Banner Start */}
         <div className="col-lg-12">
             <div className="p-5">

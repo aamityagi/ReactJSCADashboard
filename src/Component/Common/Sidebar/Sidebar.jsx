@@ -84,13 +84,13 @@ const Sidebar = () => {
             <Link className="collapse-item" to="/about">
               About
             </Link>
-            <Link className="collapse-item" to="register.html">
+            <Link className="collapse-item" to="/pricing">
               Pricing
             </Link>
-            <Link className="collapse-item" to="forgot-password.html">
+            <Link className="collapse-item" to="/contact">
               Contact Us
             </Link>
-            <Link className="collapse-item" to="forgot-password.html">
+            <Link className="collapse-item" to="/blogs">
               Blog's
             </Link>
           </div>

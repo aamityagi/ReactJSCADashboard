@@ -18,6 +18,8 @@ import Team from './Component/PageCommon/Team/Team';
 import WorkedWithBrand from './Component/PageCommon/WorkedWithBrand/WorkedWithBrand';
 import WebsiteFooter from './Component/PageCommon/Footer/WebsiteFooter';
 import UserPermissions from './Component/UserPermissions/UserPermissions';
+import Pricing from './Component/Pages/Website-Pages/Pricing';
+import Contact from './Component/Pages/Website-Pages/Contact';
 
 
 function App() {
@@ -39,6 +41,9 @@ function App() {
             <Route path='/about' element={<About/>}></Route>
             <Route path='/enquire' element={<Enquire/>}></Route>
             <Route path='/services' element={<Services/>}></Route>
+            <Route path='/pricing' element={<Pricing/>}></Route>
+            <Route path='/contact' element={<Contact/>}></Route>
+            
             {/* Common Component Start */}
             <Route path='/about-short-note' element={<AboutShortNotes/>}></Route>
             <Route path='/about-our-services' element={<AboutOurServices/>}></Route>
