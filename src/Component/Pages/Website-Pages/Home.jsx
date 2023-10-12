@@ -1,6 +1,28 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import {GrAdd} from 'react-icons/gr'
+import {AiOutlineDelete} from 'react-icons/ai'
+import VideoSlider from './common/VideoSlider/VideoSlider'
 const Home = () => {
+    
+    // Let's work together Use State
+    const [iconTitleDescription, setIconTitleDescription] = useState([{iconAdd:'',enterTitle:'',enterDescription: ''}])
+
+    // Let Us Work To Gether Start
+    const handleLetUsWorkToGetherInput = (e, i) => {
+        const {name, value} = e.target;
+        const list = [...iconTitleDescription];
+        list[i][name] = value; 
+        setIconTitleDescription(list);
+    }
+    const handleadAddLetsWorkTogether = () => {
+        setIconTitleDescription([...iconTitleDescription, {iconAdd:'',enterTitle:'',enterDescription: ''}]);
+    }
+    const handleadRemoveLetsWorkTogether = (i) => {
+        const list = [...iconTitleDescription];
+        list.splice(i,1);
+        setIconTitleDescription(list);
+    }
+    // Let Us Work To Gether End
   return (
     <>
         {/* Page Heading */}
@@ -47,70 +69,66 @@ const Home = () => {
             </div>
         </div>
         {/* Home Banner End */}
+        <hr/>
         {/* Video Banner Start */}
-        <div className="col-lg-12">
-            <div className="p-5 pt-0">
-                <div className="text-center">
-                    <h1 className="h4 text-gray-900 mb-4">Video Banner</h1>
-                </div>
-                <form className='row'>
-                    <div className="form-group col-md-10">
-                        <input
-                        type="text"
-                        className="form-control"
-                        id="videoUrl"
-                        aria-describedby="videoUrl"
-                        placeholder="Enter Youtube Video URL"
-                        required
-                        />
-                    </div>
-                    <div className="form-group col-md-2 text-right">
-                        <button type='submit' className="btn btn-primary btn-user">Add</button>
-                    </div>
-                    <button type='submit' className="btn btn-primary btn-user">Video URL Submit</button>
-                </form>
-            </div>
-        </div>
+        <VideoSlider/>
         {/* Video Banner End */}
+        <hr/>
         {/* Let's work together Start */}
-        <div className="col-lg-12">
+        <div className="col-lg-12 mt-4">
             <div className="p-5 pt-0">
                 <div className="text-center">
                     <h1 className="h4 text-gray-900 mb-4">Let's work together</h1>
                 </div>
-                <form className='row'>
-                    <div className="form-group col-md-4">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                            </div>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"/>
-                                <label class="custom-file-label" for="inputGroupFile01">Choose Icon</label>
-                            </div>
-                        </div>      
-                    </div>
-                    <div className="form-group col-md-2">
-                        <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter Title"
-                        required
-                        />
-                    </div>
-                    <div className="form-group col-md-4">
-                        <textarea
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter Description"
-                        required
-                        rows="1"
-                        />
-                    </div>
-                    <div className="form-group col-md-2 text-right">
-                        <button type='submit' className="btn btn-primary btn-user">Add</button>
-                    </div>
-                    <button type='submit' className="btn btn-primary btn-user">Video URL Submit</button>
+                <form className='w-100 position-relative'>
+                    { iconTitleDescription.map((x,i) => {
+                        return(
+                            <div className='row' key={x}>   
+                                <div className="form-group col-md-4">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" name='iconAdd' class="custom-file-input" onChange={(e) => handleLetUsWorkToGetherInput(e, i)}/>
+                                            <label class="custom-file-label">Choose Icon</label>
+                                        </div>
+                                    </div>      
+                                </div>
+                                <div className="form-group col-md-2">
+                                    <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter Title"
+                                    required
+                                    name='enterTitle'
+                                    onChange={(e) => handleLetUsWorkToGetherInput(e, i)}
+                                    />
+                                </div>
+                                <div className="form-group col-md-4">
+                                    <textarea
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter Description"
+                                    required
+                                    rows="1"
+                                    name='enterDescription'
+                                    onChange={(e) => handleLetUsWorkToGetherInput(e, i)}
+                                    />
+                                </div>
+                                <div className="form-group col-md-2 text-right">
+                                    {iconTitleDescription.length-1===i &&
+                                        <button onClick={handleadAddLetsWorkTogether} type='button' className="btn btn-primary btn-user"><GrAdd color="#fff"/></button>
+                                    }
+                                    { iconTitleDescription.length !== 1 &&
+                                        <button onClick={handleadRemoveLetsWorkTogether} type='button' className="btn btn-danger btn-user"><AiOutlineDelete/></button>
+                                    }
+                                </div>
+                            </div> 
+                        )
+                    })
+                    }
+                    <button type='submit' className="btn btn-primary m-auto d-block">Submit</button>
                 </form>
             </div>
         </div>

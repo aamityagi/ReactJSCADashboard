@@ -8,29 +8,44 @@ const Contact = () => {
             <h1 className="h3 mb-0 text-gray-800">Contact Page</h1>
         </div>
         {/* Page Contant Update Start */}
-        <form>
-            <div className="form-group">
-                <input type="text" className="form-control" placeholder="Sub Heading"/>
+        <form className='row'>
+            <div className='col-md-6'>
+                <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Sub Heading"/>
+                </div>
+                <div className="form-group">
+                    <textarea className="form-control" rows="3" placeholder='Enter Main Heading'></textarea>
+                </div>
+                <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Map Location Embed"/>
+                </div>
+                <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Form Reciver Email Id"/>
+                </div>
             </div>
-            <div className="form-group">
-                <input type="text" className="form-control" placeholder="Main Heading"/>
+            <div className='col-md-6'>
+                
+                <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Main Heading"/>
+                </div>
+                <div className="form-group">
+                    <textarea className="form-control" rows="3" placeholder='Discription'></textarea>
+                </div>
+                <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Enter Mobile Number"/>
+                </div>
+                <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Enter Email Id To be Show"/>
+                </div>
+                <div className="form-group">
+                    <label for="exampleFormControlTextarea1">Example textarea</label>
+                    <textarea className="form-control" rows="3" placeholder='Enter Address'></textarea>
+                </div>
             </div>
-            <div className="form-group">
-                <input type="text" className="form-control" placeholder="Map Location Emb"/>
-            </div>
-            <div className="form-group">
-                <label for="exampleFormControlSelect2">Example multiple select</label>
-                <select multiple className="form-control" id="exampleFormControlSelect2">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                </select>
-            </div>
-            <div className="form-group">
-                <label for="exampleFormControlTextarea1">Example textarea</label>
-                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <div className='col-md-12 text-center'>
+                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#singleUserData">
+                    Submit
+                </button>
             </div>
         </form>
     </>
