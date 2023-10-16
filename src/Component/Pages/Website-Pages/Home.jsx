@@ -118,7 +118,7 @@ const Home = () => {
                                 </div>
                                 <div className="form-group col-md-2 text-right">
                                     {iconTitleDescription.length-1===i &&
-                                        <button onClick={handleadAddLetsWorkTogether} type='button' className="btn btn-primary btn-user"><GrAdd color="#fff"/></button>
+                                        <button onClick={handleadAddLetsWorkTogether} type='button' className="btn btn-primary btn-user mr-2"><GrAdd color="#fff"/></button>
                                     }
                                     { iconTitleDescription.length !== 1 &&
                                         <button onClick={handleadRemoveLetsWorkTogether} type='button' className="btn btn-danger btn-user"><AiOutlineDelete/></button>

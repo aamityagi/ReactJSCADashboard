@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import {MdFeedback} from 'react-icons/md'
-import {BsFillQuestionOctagonFill, BsMicrosoftTeams} from 'react-icons/bs'
+import {MdFeedback, MdOutlineMedicalServices} from 'react-icons/md'
+import {BsFillQuestionOctagonFill, BsMicrosoftTeams, BsBriefcase} from 'react-icons/bs'
 import { FaStickyNote, FaCreativeCommonsNd } from 'react-icons/fa'
 import { TbBrand4Chan, TbBrandAirbnb } from 'react-icons/tb'
 import { CgWebsite } from 'react-icons/cg'
 import { GrBusinessService } from 'react-icons/gr'
-import {AiFillUnlock} from 'react-icons/ai'
+import {AiFillUnlock, AiOutlineUnlock, AiOutlineHeart, AiOutlineUser} from 'react-icons/ai'
+import {IoAnalyticsOutline} from 'react-icons/io5'
 const Sidebar = () => {
   const [sideBarToggle, setSideBarRoggle] = useState('');
   const sideBarOpenClose = () => {
@@ -38,17 +39,59 @@ const Sidebar = () => {
       {/* Divider */}
       <hr className="sidebar-divider my-0" />
       {/* Nav Item - Dashboard */}
-      <li className="nav-item active">
+      <li className="nav-item">
         <Link className="nav-link" to="/dashboard">
           <i className="fas fa-fw fa-tachometer-alt" />
           <span>Dashboard</span>
         </Link>
       </li>
+      
       {/* Nav Item - user permissions */}
-      <li className="nav-item active">
+      <li className="nav-item">
         <Link className="nav-link" to="/user-permissions">
           <AiFillUnlock/>
           <span> User Permissions</span>
+        </Link>
+      </li>
+
+      <hr className="sidebar-divider"/>
+      {/* Heading */}
+      <div className="sidebar-heading">
+          Single User Dashboard
+      </div>
+      {/* Nav Item - Single User Overview */}
+      <li className="nav-item">
+        <Link className="nav-link" to="/overview">
+          <IoAnalyticsOutline/>
+          <span> Over View</span>
+        </Link>
+      </li>
+      {/* Nav Item - All Servieces */}
+      <li className="nav-item">
+        <Link className="nav-link" to="/all-services">
+          <BsBriefcase/>
+          <span> All Servieces</span>
+        </Link>
+      </li>
+      {/* Nav Item - Servieces Unlock */}
+      <li className="nav-item">
+        <Link className="nav-link" to="/services-unlock">
+          <AiOutlineUnlock/>
+          <span> Servieces Unlock</span>
+        </Link>
+      </li>
+      {/* Nav Item - Referral */}
+      <li className="nav-item">
+        <Link className="nav-link" to="/referral">
+          <AiOutlineHeart/>
+          <span> Referral</span>
+        </Link>
+      </li>
+      {/* Nav Item - Referral */}
+      <li className="nav-item">
+        <Link className="nav-link" to="/about-user">
+          <AiOutlineUser/>
+          <span> About</span>
         </Link>
       </li>
       {/* Divider */}
@@ -117,7 +160,7 @@ const Sidebar = () => {
         >
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Services Request:</h6>
-            <Link className="collapse-item" to="buttons.html">
+            <Link className="collapse-item" to="/services">
               CURD Services
             </Link>
           </div>

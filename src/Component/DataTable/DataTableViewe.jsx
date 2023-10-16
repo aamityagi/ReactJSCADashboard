@@ -46,7 +46,7 @@ const DataTableViewe = () => {
   return (
     <div>
       {/* Form Modal User Related Infor Start */}
-      <div className="modal fade" id="singleUserData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="singleUserData" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
@@ -85,17 +85,17 @@ const DataTableViewe = () => {
                 <hr/>
                 <div className="form-check form-check-inline">
                   <input className="form-check-input" type="checkbox" id="pancard" value="pancard"/>
-                  <label className="form-check-label" for="pancard">Pan Card</label>
+                  <label className="form-check-label" htmlFor="pancard">Pan Card</label>
                   <Link className='ml-2'><FcDownload/></Link>
                 </div>
                 <div className="form-check form-check-inline">
                   <input className="form-check-input" type="checkbox" id="adharcard" value="adharcard"/>
-                  <label className="form-check-label" for="adharcard">Adhar Card</label>
+                  <label className="form-check-label" htmlFor="adharcard">Adhar Card</label>
                   <Link className='ml-2'><FcDownload/></Link>
                 </div>
                 <div className="form-check form-check-inline">
                   <input className="form-check-input" type="checkbox" id="6Mbankstatment" value="6Mbankstatment"/>
-                  <label className="form-check-label" for="6Mbankstatment">6 Month Bankstatment</label>
+                  <label className="form-check-label" htmlFor="6Mbankstatment">6 Month Bankstatment</label>
                   <Link className='ml-2'><FcDownload/></Link>
                 </div>
               </div>

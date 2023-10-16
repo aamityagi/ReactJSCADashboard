@@ -20,6 +20,12 @@ import WebsiteFooter from './Component/PageCommon/Footer/WebsiteFooter';
 import UserPermissions from './Component/UserPermissions/UserPermissions';
 import Pricing from './Component/Pages/Website-Pages/Pricing';
 import Contact from './Component/Pages/Website-Pages/Contact';
+// Sinlge User Component Start
+import UserDashboard from './Component/SingleUser/UserDashboard';
+import ShowAllServices from './Component/SingleUser/ShowAllServices';
+import ServicesUnlock from './Component/SingleUser/ServicesUnlock';
+import Referral from './Component/SingleUser/Referral';
+import AboutUser from './Component/SingleUser/AboutUser';
 
 
 function App() {
@@ -35,6 +41,14 @@ function App() {
             {/* Admin View Pages Start */}
             <Route path='/dashboard' element={<Dashboard/>}></Route>
             <Route path='/user-permissions' element={<UserPermissions/>}></Route>
+
+            {/* Single User Access Start */}
+            <Route path='/overview' element={<UserDashboard/>}></Route>
+            <Route path='/all-services' element={<ShowAllServices/>}></Route>
+            <Route path='/services-unlock' element={<ServicesUnlock/>}></Route>
+            <Route path='/referral' element={<Referral/>}></Route>
+            <Route path='/about-user' element={<AboutUser/>}></Route>
+            {/* Single User Access End */}
 
             {/* Webstie Pages Access */}
             <Route path='/home' element={<Home/>}></Route>

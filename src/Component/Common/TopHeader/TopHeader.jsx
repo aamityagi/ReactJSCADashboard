@@ -6,6 +6,7 @@ const TopHeader = () => {
     document.querySelector('#accordionSidebar').classList.toggle('toggled');
   }
   return (
+    <>
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
           {/* Sidebar Toggle (Topbar) */}
           <button
@@ -17,211 +18,6 @@ const TopHeader = () => {
           </button>
           {/* Topbar Navbar */}
           <ul className="navbar-nav ml-auto">
-            {/* Nav Item - Search Dropdown (Visible Only XS) */}
-            <li className="nav-item dropdown no-arrow d-sm-none">
-              <Link
-                className="nav-link dropdown-toggle"
-                to="#"
-                id="searchDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i className="fas fa-search fa-fw" />
-              </Link>
-              {/* Dropdown - Messages */}
-              <div
-                className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                aria-labelledby="searchDropdown"
-              >
-                <form className="form-inline mr-auto w-100 navbar-search">
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      className="form-control bg-light border-0 small"
-                      placeholder="Search for..."
-                      aria-label="Search"
-                      aria-describedby="basic-addon2"
-                    />
-                    <div className="input-group-append">
-                      <button className="btn btn-primary" type="button">
-                        <i className="fas fa-search fa-sm" />
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-            {/* Nav Item - Alerts */}
-            <li className="nav-item dropdown no-arrow mx-1">
-              <Link
-                className="nav-link dropdown-toggle"
-                to="#"
-                id="alertsDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i className="fas fa-bell fa-fw" />
-                {/* Counter - Alerts */}
-                <span className="badge badge-danger badge-counter">3+</span>
-              </Link>
-              {/* Dropdown - Alerts */}
-              <div
-                className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown"
-              >
-                <h6 className="dropdown-header">Alerts Center</h6>
-                <Link className="dropdown-item d-flex align-items-center" to="#">
-                  <div className="mr-3">
-                    <div className="icon-circle bg-primary">
-                      <i className="fas fa-file-alt text-white" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="small text-gray-500">December 12, 2019</div>
-                    <span className="font-weight-bold">
-                      A new monthly report is ready to download!
-                    </span>
-                  </div>
-                </Link>
-                <Link className="dropdown-item d-flex align-items-center" to="#">
-                  <div className="mr-3">
-                    <div className="icon-circle bg-success">
-                      <i className="fas fa-donate text-white" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </Link>
-                <Link className="dropdown-item d-flex align-items-center" to="#">
-                  <div className="mr-3">
-                    <div className="icon-circle bg-warning">
-                      <i className="fas fa-exclamation-triangle text-white" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for
-                    your account.
-                  </div>
-                </Link>
-                <Link
-                  className="dropdown-item text-center small text-gray-500"
-                  to="#"
-                >
-                  Show All Alerts
-                </Link>
-              </div>
-            </li>
-            {/* Nav Item - Messages */}
-            <li className="nav-item dropdown no-arrow mx-1">
-              <Link
-                className="nav-link dropdown-toggle"
-                to="#"
-                id="messagesDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i className="fas fa-envelope fa-fw" />
-                {/* Counter - Messages */}
-                <span className="badge badge-danger badge-counter">7</span>
-              </Link>
-              {/* Dropdown - Messages */}
-              <div
-                className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="messagesDropdown"
-              >
-                <h6 className="dropdown-header">Message Center</h6>
-                <Link className="dropdown-item d-flex align-items-center" to="#">
-                  <div className="dropdown-list-image mr-3">
-                    <img
-                      className="rounded-circle"
-                      src="img/undraw_profile_1.svg"
-                      alt="..."
-                    />
-                    <div className="status-indicator bg-success" />
-                  </div>
-                  <div className="font-weight-bold">
-                    <div className="text-truncate">
-                      Hi there! I am wondering if you can help me with a problem
-                      I've been having.
-                    </div>
-                    <div className="small text-gray-500">
-                      Emily Fowler · 58m
-                    </div>
-                  </div>
-                </Link>
-                <Link className="dropdown-item d-flex align-items-center" to="#">
-                  <div className="dropdown-list-image mr-3">
-                    <img
-                      className="rounded-circle"
-                      src="img/undraw_profile_2.svg"
-                      alt="..."
-                    />
-                    <div className="status-indicator" />
-                  </div>
-                  <div>
-                    <div className="text-truncate">
-                      I have the photos that you ordered last month, how would
-                      you like them sent to you?
-                    </div>
-                    <div className="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </Link>
-                <Link className="dropdown-item d-flex align-items-center" to="#">
-                  <div className="dropdown-list-image mr-3">
-                    <img
-                      className="rounded-circle"
-                      src="img/undraw_profile_3.svg"
-                      alt="..."
-                    />
-                    <div className="status-indicator bg-warning" />
-                  </div>
-                  <div>
-                    <div className="text-truncate">
-                      Last month's report looks great, I am very happy with the
-                      progress so far, keep up the good work!
-                    </div>
-                    <div className="small text-gray-500">
-                      Morgan Alvarez · 2d
-                    </div>
-                  </div>
-                </Link>
-                <Link className="dropdown-item d-flex align-items-center" to="#">
-                  <div className="dropdown-list-image mr-3">
-                    <img
-                      className="rounded-circle"
-                      src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                      alt="..."
-                    />
-                    <div className="status-indicator bg-success" />
-                  </div>
-                  <div>
-                    <div className="text-truncate">
-                      Am I a good boy? The reason I ask is because someone told
-                      me that people say this to all dogs, even if they aren't
-                      good...
-                    </div>
-                    <div className="small text-gray-500">
-                      Chicken the Dog · 2w
-                    </div>
-                  </div>
-                </Link>
-                <Link
-                  className="dropdown-item text-center small text-gray-500"
-                  to="#"
-                >
-                  Read More Messages
-                </Link>
-              </div>
-            </li>
             <div className="topbar-divider d-none d-sm-block" />
             {/* Nav Item - User Information */}
             <li className="nav-item dropdown no-arrow">
@@ -247,7 +43,7 @@ const TopHeader = () => {
                 className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown"
               >
-                <Link className="dropdown-item" to="#">
+                <Link className="dropdown-item" to="#" data-toggle="modal" data-target="#singleUserData">
                   <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400" />
                   Profile
                 </Link>
@@ -273,6 +69,162 @@ const TopHeader = () => {
             </li>
           </ul>
         </nav>
+    
+    {/* Edit User Profile Start */}
+    {/* Form Modal User Related Infor Start */}
+    <div className="modal fade" id="singleUserData" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
+            <div className="modal-body">
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div className="row">
+                <div className="col-md-4 border-right">
+                  <div className="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img
+                      className="rounded-circle mt-5"
+                      width="150px"
+                      src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                    />
+                    <span className="font-weight-bold">Edogaru</span>
+                    <span className="text-black-50">edogaru@mail.com.my</span>
+                    <span> </span>
+                  </div>
+                </div>
+                <div className="col-md-8">
+                  <div className="p-3 py-5">
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                      <h4 className="text-right">Profile Settings</h4>
+                    </div>
+                    <div className="row mt-2">
+                      <div className="col-md-6">
+                        <label className="labels">Name</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="first name"
+                          defaultValue=""
+                        />
+                      </div>
+                      <div className="col-md-6">
+                        <label className="labels">Surname</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          defaultValue=""
+                          placeholder="surname"
+                        />
+                      </div>
+                    </div>
+                    <div className="row mt-3">
+                      <div className="col-md-12">
+                        <label className="labels">Mobile Number</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="enter phone number"
+                          defaultValue=""
+                        />
+                      </div>
+                      <div className="col-md-12">
+                        <label className="labels">Address Line 1</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="enter address line 1"
+                          defaultValue=""
+                        />
+                      </div>
+                      <div className="col-md-12">
+                        <label className="labels">Address Line 2</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="enter address line 2"
+                          defaultValue=""
+                        />
+                      </div>
+                      <div className="col-md-12">
+                        <label className="labels">Postcode</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="enter address line 2"
+                          defaultValue=""
+                        />
+                      </div>
+                      <div className="col-md-12">
+                        <label className="labels">State</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="enter address line 2"
+                          defaultValue=""
+                        />
+                      </div>
+                      <div className="col-md-12">
+                        <label className="labels">Area</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="enter address line 2"
+                          defaultValue=""
+                        />
+                      </div>
+                      <div className="col-md-12">
+                        <label className="labels">Email ID</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="enter email id"
+                          defaultValue=""
+                        />
+                      </div>
+                      <div className="col-md-12">
+                        <label className="labels">Education</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="education"
+                          defaultValue=""
+                        />
+                      </div>
+                    </div>
+                    <div className="row mt-3">
+                      <div className="col-md-6">
+                        <label className="labels">Country</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="country"
+                          defaultValue=""
+                        />
+                      </div>
+                      <div className="col-md-6">
+                        <label className="labels">State/Region</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          defaultValue=""
+                          placeholder="state"
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-5 text-center">
+                      <button className="btn btn-primary profile-button" type="button">
+                        Save Profile
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {/* Edit User Profile End */}
+    </>
   )
 }
 
