@@ -26,49 +26,65 @@ import ShowAllServices from './Component/SingleUser/ShowAllServices';
 import ServicesUnlock from './Component/SingleUser/ServicesUnlock';
 import Referral from './Component/SingleUser/Referral';
 import AboutUser from './Component/SingleUser/AboutUser';
-
-
+import TrustedCompany from './Component/PageCommon/TrustedCompany/TrustedCompany';
+// Require Auth
+import RequireAuth from './Component/RequireAuth/RequireAuth';
+import PersistLogin from './Component/Login/PersistLogin';
+import Unauthorized from './Component/Unauthorized/Unauthorized';
+// Unauthorized User
+// ROLES 
+const ROLES = {
+  'user': ['1003'],
+  'admin': ['1001'],
+  'editor': ['1002'],
+}
 function App() {
   return (
     <>
-        <Routes>
-          {/* Login and Registration Render First */}
+      <Routes>
+          {/* Plublic Route Login, Register and Forgot Password */}
           <Route path='/' element={<Login/>}></Route>
           <Route path='/register' element={<Register/>}></Route>
           <Route path='/forgot-password' element={<ForgotPassword/>}></Route>
-          {/* After Login component and page Render Start in Layout */}
-          <Route path='/' element={<Layout/> }>
-            {/* Admin View Pages Start */}
-            <Route path='/dashboard' element={<Dashboard/>}></Route>
-            <Route path='/user-permissions' element={<UserPermissions/>}></Route>
-
-            {/* Single User Access Start */}
-            <Route path='/overview' element={<UserDashboard/>}></Route>
-            <Route path='/all-services' element={<ShowAllServices/>}></Route>
-            <Route path='/services-unlock' element={<ServicesUnlock/>}></Route>
-            <Route path='/referral' element={<Referral/>}></Route>
-            <Route path='/about-user' element={<AboutUser/>}></Route>
-            {/* Single User Access End */}
-
-            {/* Webstie Pages Access */}
-            <Route path='/home' element={<Home/>}></Route>
-            <Route path='/about' element={<About/>}></Route>
-            <Route path='/enquire' element={<Enquire/>}></Route>
-            <Route path='/services' element={<Services/>}></Route>
-            <Route path='/pricing' element={<Pricing/>}></Route>
-            <Route path='/contact' element={<Contact/>}></Route>
-            
-            {/* Common Component Start */}
-            <Route path='/about-short-note' element={<AboutShortNotes/>}></Route>
-            <Route path='/about-our-services' element={<AboutOurServices/>}></Route>
-            <Route path='/customers-feedback' element={<CustomersFeedback/>}></Route>
-            <Route path='/frequently-asked-questions' element={<FrequentlyAskedQuestions/>}></Route>
-            <Route path='/team' element={<Team/>}></Route>
-            <Route path='/worked-with-brand' element={<WorkedWithBrand/>}></Route>
-            <Route path='/website-footer-options' element={<WebsiteFooter/>}></Route>
-            {/* Common Component End */}
-            {/* Admin View Pages End */}
-          </Route> 
+          <Route path='/Unauthorized' element={<Unauthorized/>}></Route>
+          {/* After Login we want to Protect these routes on Roal Base */}
+          <Route path='/' element={<Layout/>}>
+              <Route element={<RequireAuth allowedRoles={[ROLES.admin]}/>}>
+                {/* Admin View Pages Start */}
+                <Route path='/dashboard' element={<Dashboard/>}></Route>
+                <Route path='/user-permissions' element={<UserPermissions/>}></Route>
+              </Route>
+                {/* Admin View Pages End */}
+              <Route element={<RequireAuth allowedRoles={[ROLES.editor, ROLES.admin]}/>}>
+                {/* Webstie Pages Access */}
+                <Route path='/home' element={<Home/>}></Route>
+                <Route path='/about' element={<About/>}></Route>
+                <Route path='/enquire' element={<Enquire/>}></Route>
+                <Route path='/services' element={<Services/>}></Route>
+                <Route path='/pricing' element={<Pricing/>}></Route>
+                <Route path='/contact' element={<Contact/>}></Route>
+                
+                {/* Common Component Start */}
+                <Route path='/about-short-note' element={<AboutShortNotes/>}></Route>
+                <Route path='/about-our-services' element={<AboutOurServices/>}></Route>
+                <Route path='/customers-feedback' element={<CustomersFeedback/>}></Route>
+                <Route path='/frequently-asked-questions' element={<FrequentlyAskedQuestions/>}></Route>
+                <Route path='/trusted-company' element={<TrustedCompany/>}></Route>
+                <Route path='/team' element={<Team/>}></Route>
+                <Route path='/worked-with-brand' element={<WorkedWithBrand/>}></Route>
+                <Route path='/website-footer-options' element={<WebsiteFooter/>}></Route>
+                {/* Common Component End */}
+              </Route>
+              <Route element={<RequireAuth allowedRoles={[ROLES.user]}/>}>
+                {/* Single User Access Start */}
+                <Route path='/overview' element={<UserDashboard/>}></Route>
+                <Route path='/all-services' element={<ShowAllServices/>}></Route>
+                <Route path='/services-unlock' element={<ServicesUnlock/>}></Route>
+                <Route path='/referral' element={<Referral/>}></Route>
+                <Route path='/about-user' element={<AboutUser/>}></Route>
+                {/* Single User Access End */}
+              </Route>
+            </Route>
           {/* If the User or other person Search by the Url Like:- www.demo.com/test or another page **/}
           <Route path='*' element={<Login/>}></Route>
         </Routes>

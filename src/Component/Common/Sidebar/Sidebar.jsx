@@ -8,6 +8,7 @@ import { CgWebsite } from 'react-icons/cg'
 import { GrBusinessService } from 'react-icons/gr'
 import {AiFillUnlock, AiOutlineUnlock, AiOutlineHeart, AiOutlineUser} from 'react-icons/ai'
 import {IoAnalyticsOutline} from 'react-icons/io5'
+import {VscWorkspaceTrusted} from 'react-icons/vsc'
 const Sidebar = () => {
   const [sideBarToggle, setSideBarRoggle] = useState('');
   const sideBarOpenClose = () => {
@@ -191,6 +192,11 @@ const Sidebar = () => {
               <FaStickyNote/>
               <span> About Short Notes</span>
             </Link>
+            <Link className="collapse-item" to="/trusted-company">
+              <VscWorkspaceTrusted/>
+              <span> Trusted Company</span>
+            </Link>
+            
             <Link className="collapse-item" to="/team">
               <BsMicrosoftTeams/>
               <span> Team</span>

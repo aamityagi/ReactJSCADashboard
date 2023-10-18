@@ -1,10 +1,19 @@
 import React from 'react'
 import './TopHeader.jsx'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
+import useLogout from '../../../hooks/useLogout.jsx'
 const TopHeader = () => {
+  const navigate = useNavigate();
   const mobileSideBar  = () => {
     document.querySelector('#accordionSidebar').classList.toggle('toggled');
   }
+  // Logout Work Start
+  const logout = useLogout();
+  const signOut = async () => {
+    await logout();
+    navigate('/login');
+  }
+  // Logout Work End
   return (
     <>
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -61,6 +70,7 @@ const TopHeader = () => {
                   to="#"
                   data-toggle="modal"
                   data-target="#logoutModal"
+                  onClick={signOut}
                 >
                   <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" />
                   Logout
