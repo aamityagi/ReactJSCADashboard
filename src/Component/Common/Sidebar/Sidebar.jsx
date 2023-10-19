@@ -38,7 +38,10 @@ const Sidebar = ({roles}) => {
           CA Dashbaord
         </div>
       </Link>
-      {/* Divider */}
+     
+      {roles === "admin" 
+      ? 
+       <>{/* Divider */}
       <hr className="sidebar-divider my-0" />
       {/* Nav Item - Dashboard */}
       <li className="nav-item">
@@ -184,48 +187,53 @@ const Sidebar = ({roles}) => {
           </div>
         </div>
       </li>
-      {/* Single User Menu Option Start */}
-      <hr className="sidebar-divider"/>
-      {/* Heading */}
-      <div className="sidebar-heading">
-          Single User Dashboard
-      </div>
-      {/* Nav Item - Single User Overview */}
-      <li className="nav-item">
-        <Link className="nav-link" to="/overview">
-          <IoAnalyticsOutline/>
-          <span> Over View</span>
-        </Link>
-      </li>
-      {/* Nav Item - All Servieces */}
-      <li className="nav-item">
-        <Link className="nav-link" to="/all-services">
-          <BsBriefcase/>
-          <span> All Servieces</span>
-        </Link>
-      </li>
-      {/* Nav Item - Servieces Unlock */}
-      <li className="nav-item">
-        <Link className="nav-link" to="/services-unlock">
-          <AiOutlineUnlock/>
-          <span> Servieces Unlock</span>
-        </Link>
-      </li>
-      {/* Nav Item - Referral */}
-      <li className="nav-item">
-        <Link className="nav-link" to="/referral">
-          <AiOutlineHeart/>
-          <span> Referral</span>
-        </Link>
-      </li>
-      {/* Nav Item - About */}
-      <li className="nav-item">
-        <Link className="nav-link" to="/about-user">
-          <AiOutlineUser/>
-          <span> About</span>
-        </Link>
-      </li>
-      {/* Single User Menu Option End */}
+      </>
+      :
+        <>{/* Single User Menu Option Start */}
+        <hr className="sidebar-divider"/>
+        {/* Heading */}
+        <div className="sidebar-heading">
+            Single User Dashboard
+        </div>
+        {/* Nav Item - Single User Overview */}
+        <li className="nav-item">
+          <Link className="nav-link" to="/overview">
+            <IoAnalyticsOutline/>
+            <span> Over View</span>
+          </Link>
+        </li>
+        {/* Nav Item - All Servieces */}
+        <li className="nav-item">
+          <Link className="nav-link" to="/all-services">
+            <BsBriefcase/>
+            <span> All Servieces</span>
+          </Link>
+        </li>
+        {/* Nav Item - Servieces Unlock */}
+        <li className="nav-item">
+          <Link className="nav-link" to="/services-unlock">
+            <AiOutlineUnlock/>
+            <span> Servieces Unlock</span>
+          </Link>
+        </li>
+        {/* Nav Item - Referral */}
+        <li className="nav-item">
+          <Link className="nav-link" to="/referral">
+            <AiOutlineHeart/>
+            <span> Referral</span>
+          </Link>
+        </li>
+        {/* Nav Item - About */}
+        <li className="nav-item">
+          <Link className="nav-link" to="/about-user">
+            <AiOutlineUser/>
+            <span> About</span>
+          </Link>
+        </li>
+      </>
+      }
+      
+      
       {/* Sidebar Toggler (Sidebar) */}
       <div className="text-center d-none d-md-inline">
         <button className="rounded-circle border-0" id="sidebarToggle" onClick={sideBarOpenClose}/>
