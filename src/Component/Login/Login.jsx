@@ -54,11 +54,11 @@ const Login = () => {
           const roles = accessTokenDecode.realm_access.roles;
           setAuth({username, userID, roles, accessToken});
           // console.log("User Name:- " + username, ", User id:- " + userID, ", User role:- " + roles, ", User Access Token:- " + accessToken);
-          roles[0] === "user" 
-          ? navigate('overview')
-          : roles[0] === "admin" 
+          roles.includes("user") 
+          ? navigate('/overview')
+          : roles.includes("admin") 
             ? navigate('/dashboard')
-            : navigate("/")
+            : navigate('/login')
         })
         .catch((error) => {
           // If Server not Response

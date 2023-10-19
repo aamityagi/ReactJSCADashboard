@@ -45,12 +45,13 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword/>}></Route>
           <Route path='/Unauthorized' element={<Unauthorized/>}></Route>
           {/* After Login we want to Protect these routes on Roal Base */}
-          <Route element={<RequireAuth/>}>
-            <Route path='/' element={<Layout role={auth.roles}/>}>
+          <Route path='/' element={<Layout role={auth.roles}/>}>
+            <Route element={<RequireAuth allowedRoles={['admin']}/>}>
               {/* Admin View Pages Start */}
               <Route path='/dashboard' element={<Dashboard/>}></Route>
               <Route path='/user-permissions' element={<UserPermissions/>}></Route>
-
+            </Route>
+            <Route element={<RequireAuth allowedRoles={['edior', 'admin']}/>}>
               {/* Webstie Pages Access */}
               <Route path='/home' element={<Home/>}></Route>
               <Route path='/about' element={<About/>}></Route>
@@ -58,7 +59,8 @@ function App() {
               <Route path='/services' element={<Services/>}></Route>
               <Route path='/pricing' element={<Pricing/>}></Route>
               <Route path='/contact' element={<Contact/>}></Route>
-              
+            </Route>
+            <Route element={<RequireAuth allowedRoles={['edior', 'admin']}/>}>
               {/* Common Component Start */}
               <Route path='/about-short-note' element={<AboutShortNotes/>}></Route>
               <Route path='/about-our-services' element={<AboutOurServices/>}></Route>
@@ -69,6 +71,8 @@ function App() {
               <Route path='/worked-with-brand' element={<WorkedWithBrand/>}></Route>
               <Route path='/website-footer-options' element={<WebsiteFooter/>}></Route>
               {/* Common Component End */}
+            </Route>
+            <Route element={<RequireAuth allowedRoles={['user']}/>}>
               {/* Single User Access Start */}
               <Route path='/overview' element={<UserDashboard/>}></Route>
               <Route path='/all-services' element={<ShowAllServices/>}></Route>
