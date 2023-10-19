@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef} from 'react'
 import './Login.css'
 
-import { Link, useLocation, useNavigate} from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import useAuth from '../../hooks/useAuth'
@@ -11,8 +11,6 @@ const Login = () => {
     const errRef = useRef();
     //Navigate  Url
     const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || '/'
     // Set Message
     const [errMsg, setErrMsg] = useState('');
     // Store User input in this process this useState
@@ -20,11 +18,6 @@ const Login = () => {
         userName:'',
         password:''
     })
-    // Focus on User Input Only
-    // useEffect(()=>{
-    //   userRef.current.focus();
-    // });
-    // Set the Message out
     useEffect(()=>{
       setErrMsg('')
     },[formValues.userName, formValues.password]);
@@ -54,22 +47,18 @@ const Login = () => {
         axios.request(config)
         .then((response) => {
           // Decode JWT Token and set in setData for Further use
-          const accessToken = jwtDecode(response?.data?.access_token);
-          const username = accessToken.preferred_username;
-          const userID = accessToken.sub;
-          const roles = accessToken.realm_access.roles;
+          const accessToken = response?.data?.access_token;
+          const accessTokenDecode = jwtDecode(response?.data?.access_token);
+          const username = accessTokenDecode.preferred_username;
+          const userID = accessTokenDecode.sub;
+          const roles = accessTokenDecode.realm_access.roles;
           setAuth({username, userID, roles, accessToken});
-          // console.log("User Name:- " + username, ", User id:- " + userID, ", User role:- " + roles);
-          // navigate(from, {replace:true});
-          if(roles !== "user"){
-            alert("User Role:- " + roles)
-            navigate('/overview');
-          } else if(roles !== "admin"){
-            alert("User Role:- " + roles)
-            navigate('/dashboard');
-          }else{
-            navigate('/unauthorized',{replace:true});
-          }
+          // console.log("User Name:- " + username, ", User id:- " + userID, ", User role:- " + roles, ", User Access Token:- " + accessToken);
+          roles[0] === "user" 
+          ? navigate('overview')
+          : roles[0] === "admin" 
+            ? navigate('/dashboard')
+            : navigate("/")
         })
         .catch((error) => {
           // If Server not Response

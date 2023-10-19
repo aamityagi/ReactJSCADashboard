@@ -3,11 +3,11 @@ import { Outlet} from 'react-router-dom'
 import Sidebar from '../Common/Sidebar/Sidebar'
 import TopHeader from '../Common/TopHeader/TopHeader'
 import Footer from '../Common/Footer/Footer'
-const Layout = () => {
+const Layout = (roles) => {
   return (
     <div id="wrapper">
       {/* Sidebar */}
-      <Sidebar/>
+      <Sidebar roles={roles.role}/>
       {/* End of Sidebar */}
       {/* Content Wrapper */}
       <div id="content-wrapper" className="d-flex flex-column">
