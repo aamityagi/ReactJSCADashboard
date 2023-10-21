@@ -18,17 +18,17 @@ const ShowAllServices = () => {
                         <h5 className="card-title text-info">ITR</h5>
                         <h6 className="card-subtitle mb-2 text-muted">Sub Title</h6>
                         <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <Link href="#" class="btn btn-success btn-sm btn-icon-split">
-                            <span class="icon text-white-50">
+                        <Link href="#" className="btn btn-success btn-sm btn-icon-split">
+                            <span className="icon text-white-50">
                                 <PiCurrencyInrBold/>
                             </span>
-                            <span class="text">Pay Now</span>
+                            <span className="text">Pay Now</span>
                         </Link>
-                        <Link href="#" class="btn btn-info btn-sm btn-icon-split text-white float-right">
-                            <span class="icon text-white-50">
+                        <Link href="#" className="btn btn-info btn-sm btn-icon-split text-white float-right">
+                            <span className="icon text-white-50">
                                 <BsInfoCircle/>
                             </span>
-                            <span class="text">Enquery Now</span>
+                            <span className="text">Enquery Now</span>
                         </Link>
                     </div>
                 </div>
