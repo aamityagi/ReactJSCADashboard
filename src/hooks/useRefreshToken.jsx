@@ -6,14 +6,10 @@ import { useEffect } from "react";
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
     const { auth } = useAuth();
-    const [refreshToken, setRefreshToken] = useState(()=>{
-      return auth?.refreshAccessToken;
-    })
-    console.log("refresh token state:- " + refreshToken)
     const refresh = async () => {
         const qs = require('qs');
         let data = qs.stringify({
-          'refresh_token' : `${refreshToken}`,
+          'refresh_token' : `${auth?.refreshAccessToken}`,
           'grant_type': 'refresh_token',
           'client_id': 'ca-website',
           'client_secret': 'nUSw2Rlf661q9b9iYwfUtj37nrHmWIi6' 
@@ -29,19 +25,18 @@ const useRefreshToken = () => {
           data : data,
         };
         const response = await axios.request(config, {withCredentials:true})
-        setRefreshToken(response.data.access_token)
         setAuth(prev => {
             console.log(JSON.stringify(prev));
-            console.log("refresh Token:- " + response.data.refresh_token)
-            console.log({...prev})
-            console.log(auth?.roles)
+            console.log(response.data.refresh_token);
+            console.log({...prev});
             return {
               ...prev, 
               roles: auth?.roles,
-              accessToken: response.data.refresh_token
+              accessToken: response.data.access_token,
+              refreshAccessToken: response.data.refresh_token
             }
         });
-        return response.data.refresh_token
+        return response.data.access_token
     }
     return refresh;
 }

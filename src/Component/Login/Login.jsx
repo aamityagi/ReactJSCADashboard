@@ -15,9 +15,9 @@ const Login = () => {
     const errRef = useRef();
     //Navigate  Url
     const navigate = useNavigate();
-    const location = useLocation();
-    const fromAdminDashboard = location.state?.from?.pathname || "/";
-    const fromUserDasboard = location.state?.from?.pathname || "/";
+    // const location = useLocation();
+    // const fromAdminDashboard = location.state?.from?.pathname || "/";
+    // const fromUserDasboard = location.state?.from?.pathname || "/";
     // Set Message
     const [errMsg, setErrMsg] = useState('');
     // Store User input in this process this useState
@@ -56,17 +56,18 @@ const Login = () => {
           // Decode JWT Token and set in setData for Further use
           const accessToken = response?.data?.access_token;
           const refreshAccessToken = response?.data?.refresh_token;
+          // Access Token Decode and Get Data form Access Token Like Username and all
           const accessTokenDecode = jwtDecode(response?.data?.access_token);
           const username = accessTokenDecode.preferred_username;
           const roles = accessTokenDecode.realm_access.roles;
+          // All Information Store in setAuth
           setAuth({username, roles, accessToken, refreshAccessToken});
-          // console.log(
-          //   "User Name:- " + username, 
-          // ", User id:- " + userID, 
-          // ", User role:- " + roles, 
-          // ", User Access Token:- " + accessToken,
-          // ", User Refresh Access Token:- " + refreshAccessToken
-          // );
+          console.log(
+          // "User Name:- " + username, 
+          "User role:- " + roles, 
+          ", User Access Token:- " + accessToken,
+          ", User Refresh Access Token:- " + refreshAccessToken
+          );
           roles.includes("user") ? navigate('/overview') : roles.includes("admin")  ? navigate('/dashboard') : navigate('/login')
           // roles.includes("user") ? navigate(fromUserDasboard, { replace: true }) : roles.includes("admin")  ? navigate(fromAdminDashboard, { replace: true }) : navigate('/')
           resetUser();
