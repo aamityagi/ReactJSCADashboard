@@ -9,8 +9,7 @@ import { GrBusinessService } from 'react-icons/gr'
 import {AiFillUnlock, AiOutlineUnlock, AiOutlineHeart, AiOutlineUser} from 'react-icons/ai'
 import {IoAnalyticsOutline} from 'react-icons/io5'
 import {VscWorkspaceTrusted} from 'react-icons/vsc'
-const Sidebar = ({roles}) => {
-  console.log(roles)
+const Sidebar = () => {
   const [sideBarToggle, setSideBarRoggle] = useState('');
   const sideBarOpenClose = () => {
     if(sideBarToggle === "")
@@ -39,10 +38,10 @@ const Sidebar = ({roles}) => {
         </div>
       </Link>
      
-      {roles.includes("admin") 
+      {/* {roles.includes("admin") 
       ? 
       (<>
-        {/* Divider */}
+      {/* Divider */}
       <hr className="sidebar-divider my-0" />
       {/* Nav Item - Dashboard */}
       <li className="nav-item">
@@ -188,11 +187,11 @@ const Sidebar = ({roles}) => {
           </div>
         </div>
       </li>
-      </>)
+      {/* </>) */}
       
-      : roles.includes("user") 
+      {/* // : roles.includes("user")  */}
         ? 
-        (<>
+       {/* (<> */}
           {/* Single User Menu Option Start */}
           <hr className="sidebar-divider"/>
           {/* Heading */}
@@ -234,9 +233,9 @@ const Sidebar = ({roles}) => {
               <span> About</span>
             </Link>
           </li>
-        </>)
-        : "User Don't Have Access to the Menu"
-      }
+        {/* </>) */}
+        {/* : "User Don't Have Access to the Menu" */}
+      {/* } */}
       
       
       {/* Sidebar Toggler (Sidebar) */}

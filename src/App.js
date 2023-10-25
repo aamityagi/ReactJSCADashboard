@@ -27,15 +27,12 @@ import ServicesUnlock from './Component/SingleUser/ServicesUnlock';
 import Referral from './Component/SingleUser/Referral';
 import AboutUser from './Component/SingleUser/AboutUser';
 import TrustedCompany from './Component/PageCommon/TrustedCompany/TrustedCompany';
+import Unauthorized from './Component/Unauthorized/Unauthorized';
 // Require Auth
 import RequireAuth from './Component/RequireAuth/RequireAuth';
 import PersistLogin from './Component/Login/PersistLogin';
-import Unauthorized from './Component/Unauthorized/Unauthorized';
-// Unauthorized User
-import useAuth from './hooks/useAuth';
 
 function App() {
-  const {auth} = useAuth();
   return (
     <>
       <Routes>
@@ -45,8 +42,7 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword/>}></Route>
           <Route path='/Unauthorized' element={<Unauthorized/>}></Route>
           {/* After Login we want to Protect these routes on Roal Base */}
-          
-          <Route path='/' element={<Layout role={auth.roles}/>}>
+          <Route path='/' element={<Layout/>}>
             <Route element={<PersistLogin/>}>
               <Route element={<RequireAuth allowedRoles={['admin']}/>}>
                 {/* Admin View Pages Start */}
