@@ -45,41 +45,44 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword/>}></Route>
           <Route path='/Unauthorized' element={<Unauthorized/>}></Route>
           {/* After Login we want to Protect these routes on Roal Base */}
+          
           <Route path='/' element={<Layout role={auth.roles}/>}>
-            <Route element={<RequireAuth allowedRoles={['admin']}/>}>
-              {/* Admin View Pages Start */}
-              <Route path='/dashboard' element={<Dashboard/>}></Route>
-              <Route path='/user-permissions' element={<UserPermissions/>}></Route>
-            </Route>
-            <Route element={<RequireAuth allowedRoles={['edior', 'admin']}/>}>
-              {/* Webstie Pages Access */}
-              <Route path='/home' element={<Home/>}></Route>
-              <Route path='/about' element={<About/>}></Route>
-              <Route path='/enquire' element={<Enquire/>}></Route>
-              <Route path='/services' element={<Services/>}></Route>
-              <Route path='/pricing' element={<Pricing/>}></Route>
-              <Route path='/contact' element={<Contact/>}></Route>
-            </Route>
-            <Route element={<RequireAuth allowedRoles={['edior', 'admin']}/>}>
-              {/* Common Component Start */}
-              <Route path='/about-short-note' element={<AboutShortNotes/>}></Route>
-              <Route path='/about-our-services' element={<AboutOurServices/>}></Route>
-              <Route path='/customers-feedback' element={<CustomersFeedback/>}></Route>
-              <Route path='/frequently-asked-questions' element={<FrequentlyAskedQuestions/>}></Route>
-              <Route path='/trusted-company' element={<TrustedCompany/>}></Route>
-              <Route path='/team' element={<Team/>}></Route>
-              <Route path='/worked-with-brand' element={<WorkedWithBrand/>}></Route>
-              <Route path='/website-footer-options' element={<WebsiteFooter/>}></Route>
-              {/* Common Component End */}
-            </Route>
-            <Route element={<RequireAuth allowedRoles={['user']}/>}>
-              {/* Single User Access Start */}
-              <Route path='/overview' element={<UserDashboard/>}></Route>
-              <Route path='/all-services' element={<ShowAllServices/>}></Route>
-              <Route path='/services-unlock' element={<ServicesUnlock/>}></Route>
-              <Route path='/referral' element={<Referral/>}></Route>
-              <Route path='/about-user' element={<AboutUser/>}></Route>
-              {/* Single User Access End */}
+            <Route element={<PersistLogin/>}>
+              <Route element={<RequireAuth allowedRoles={['admin']}/>}>
+                {/* Admin View Pages Start */}
+                <Route path='/dashboard' element={<Dashboard/>}></Route>
+                <Route path='/user-permissions' element={<UserPermissions/>}></Route>
+              </Route>
+              <Route element={<RequireAuth allowedRoles={['edior', 'admin']}/>}>
+                {/* Webstie Pages Access */}
+                <Route path='/home' element={<Home/>}></Route>
+                <Route path='/about' element={<About/>}></Route>
+                <Route path='/enquire' element={<Enquire/>}></Route>
+                <Route path='/services' element={<Services/>}></Route>
+                <Route path='/pricing' element={<Pricing/>}></Route>
+                <Route path='/contact' element={<Contact/>}></Route>
+              </Route>
+              <Route element={<RequireAuth allowedRoles={['edior', 'admin']}/>}>
+                {/* Common Component Start */}
+                <Route path='/about-short-note' element={<AboutShortNotes/>}></Route>
+                <Route path='/about-our-services' element={<AboutOurServices/>}></Route>
+                <Route path='/customers-feedback' element={<CustomersFeedback/>}></Route>
+                <Route path='/frequently-asked-questions' element={<FrequentlyAskedQuestions/>}></Route>
+                <Route path='/trusted-company' element={<TrustedCompany/>}></Route>
+                <Route path='/team' element={<Team/>}></Route>
+                <Route path='/worked-with-brand' element={<WorkedWithBrand/>}></Route>
+                <Route path='/website-footer-options' element={<WebsiteFooter/>}></Route>
+                {/* Common Component End */}
+              </Route>
+              <Route element={<RequireAuth allowedRoles={['user']}/>}>
+                {/* Single User Access Start */}
+                <Route path='/overview' element={<UserDashboard/>}></Route>
+                <Route path='/all-services' element={<ShowAllServices/>}></Route>
+                <Route path='/services-unlock' element={<ServicesUnlock/>}></Route>
+                <Route path='/referral' element={<Referral/>}></Route>
+                <Route path='/about-user' element={<AboutUser/>}></Route>
+                {/* Single User Access End */}
+              </Route>
             </Route>
           </Route>
           {/* If the User or other person Search by the Url Like:- www.demo.com/test or another page **/}

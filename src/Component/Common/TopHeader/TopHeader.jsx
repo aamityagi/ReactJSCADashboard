@@ -1,7 +1,7 @@
 import React from 'react'
 import './TopHeader.jsx'
 import { Link, useNavigate} from 'react-router-dom'
-import useLogout from '../../../hooks/useLogout.jsx'
+import useLogout from '../../../hooks/useLogout'
 const TopHeader = () => {
   const navigate = useNavigate();
   const mobileSideBar  = () => {

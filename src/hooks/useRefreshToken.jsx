@@ -1,7 +1,5 @@
 import axios from "axios"
 import useAuth from "./useAuth";
-import { useState } from "react";
-
 
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
@@ -28,9 +26,15 @@ const useRefreshToken = () => {
         const response = await axios.request(config)
         setAuth(prev => {
             console.log(JSON.stringify(prev));
-            console.log(response.data.refresh_token)
-            return {...prev, accesToken: auth?.refresh_token}
+            console.log("refresh Token:- " + response.data.refresh_token)
+            console.log({...prev})
+            return {
+              ...prev, 
+              roles: auth?.roles,
+              accessToken: response.data.refresh_token
+            }
         });
+        return response.data.refresh_token
     }
     
     return refresh;
