@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef} from 'react'
 import './Login.css'
 
-import { Link, useNavigate} from 'react-router-dom'
+import { Link, useLocation, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 // Custome Hooks for Auth and Login setup
@@ -15,6 +15,9 @@ const Login = () => {
     const errRef = useRef();
     //Navigate  Url
     const navigate = useNavigate();
+    // const location = useLocation();
+    // const fromAdminDashboard = location.state?.from?.pathname || "/";
+    // const fromUserDasboard = location.state?.from?.pathname || "/";
     // Set Message
     const [errMsg, setErrMsg] = useState('');
     // Store User input in this process this useState
@@ -40,7 +43,7 @@ const Login = () => {
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_LOGIN__TOKEN_URL}`,
+          url: `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_LOGIN_REFRESH_TOKEN_URL}`,
           headers: { 
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -53,6 +56,7 @@ const Login = () => {
           // Decode JWT Token and set in setData for Further use
           const accessToken = response?.data?.access_token;
           const refreshAccessToken = response?.data?.refresh_token;
+          // Access Token Decode and Get Data form Access Token Like Username and all
           const accessTokenDecode = jwtDecode(response?.data?.access_token);
           const username = accessTokenDecode.preferred_username;
           const roles = accessTokenDecode.realm_access.roles;

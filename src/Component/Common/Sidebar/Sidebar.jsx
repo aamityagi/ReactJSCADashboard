@@ -9,8 +9,7 @@ import { GrBusinessService } from 'react-icons/gr'
 import {AiFillUnlock, AiOutlineUnlock, AiOutlineHeart, AiOutlineUser} from 'react-icons/ai'
 import {IoAnalyticsOutline} from 'react-icons/io5'
 import {VscWorkspaceTrusted} from 'react-icons/vsc'
-const Sidebar = ({roles}) => {
-  console.log(roles)
+const Sidebar = () => {
   const [sideBarToggle, setSideBarRoggle] = useState('');
   const sideBarOpenClose = () => {
     if(sideBarToggle === "")
@@ -39,9 +38,10 @@ const Sidebar = ({roles}) => {
         </div>
       </Link>
      
-      {roles === "admin" 
+      {/* {roles.includes("admin") 
       ? 
-       <>{/* Divider */}
+      (<>
+      {/* Divider */}
       <hr className="sidebar-divider my-0" />
       {/* Nav Item - Dashboard */}
       <li className="nav-item">
@@ -187,51 +187,55 @@ const Sidebar = ({roles}) => {
           </div>
         </div>
       </li>
-      </>
-      :
-        <>{/* Single User Menu Option Start */}
-        <hr className="sidebar-divider"/>
-        {/* Heading */}
-        <div className="sidebar-heading">
-            Single User Dashboard
-        </div>
-        {/* Nav Item - Single User Overview */}
-        <li className="nav-item">
-          <Link className="nav-link" to="/overview">
-            <IoAnalyticsOutline/>
-            <span> Over View</span>
-          </Link>
-        </li>
-        {/* Nav Item - All Servieces */}
-        <li className="nav-item">
-          <Link className="nav-link" to="/all-services">
-            <BsBriefcase/>
-            <span> All Servieces</span>
-          </Link>
-        </li>
-        {/* Nav Item - Servieces Unlock */}
-        <li className="nav-item">
-          <Link className="nav-link" to="/services-unlock">
-            <AiOutlineUnlock/>
-            <span> Servieces Unlock</span>
-          </Link>
-        </li>
-        {/* Nav Item - Referral */}
-        <li className="nav-item">
-          <Link className="nav-link" to="/referral">
-            <AiOutlineHeart/>
-            <span> Referral</span>
-          </Link>
-        </li>
-        {/* Nav Item - About */}
-        <li className="nav-item">
-          <Link className="nav-link" to="/about-user">
-            <AiOutlineUser/>
-            <span> About</span>
-          </Link>
-        </li>
-      </>
-      }
+      {/* </>) */}
+      
+      {/* // : roles.includes("user")  */}
+        ? 
+       {/* (<> */}
+          {/* Single User Menu Option Start */}
+          <hr className="sidebar-divider"/>
+          {/* Heading */}
+          <div className="sidebar-heading">
+              Single User Dashboard
+          </div>
+          {/* Nav Item - Single User Overview */}
+          <li className="nav-item">
+            <Link className="nav-link" to="/overview">
+              <IoAnalyticsOutline/>
+              <span> Over View</span>
+            </Link>
+          </li>
+          {/* Nav Item - All Servieces */}
+          <li className="nav-item">
+            <Link className="nav-link" to="/all-services">
+              <BsBriefcase/>
+              <span> All Servieces</span>
+            </Link>
+          </li>
+          {/* Nav Item - Servieces Unlock */}
+          <li className="nav-item">
+            <Link className="nav-link" to="/services-unlock">
+              <AiOutlineUnlock/>
+              <span> Servieces Unlock</span>
+            </Link>
+          </li>
+          {/* Nav Item - Referral */}
+          <li className="nav-item">
+            <Link className="nav-link" to="/referral">
+              <AiOutlineHeart/>
+              <span> Referral</span>
+            </Link>
+          </li>
+          {/* Nav Item - About */}
+          <li className="nav-item">
+            <Link className="nav-link" to="/about-user">
+              <AiOutlineUser/>
+              <span> About</span>
+            </Link>
+          </li>
+        {/* </>) */}
+        {/* : "User Don't Have Access to the Menu" */}
+      {/* } */}
       
       
       {/* Sidebar Toggler (Sidebar) */}

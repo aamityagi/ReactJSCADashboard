@@ -15,11 +15,12 @@ const PersistLogin = () => {
             try{
                 await refresh();
             }catch(err){
-                console.log(err)
+                console.log(err);
             }finally{
                 isMounted && setIsLoading(false);
             }
         }
+        // This line not work
         !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
         return () => isMounted = false;
     }, [auth?.accessToken, refresh])

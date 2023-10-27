@@ -1,7 +1,7 @@
 import axios from "axios"
 import useAuth from "./useAuth";
 import { useState } from "react";
-
+import { useEffect } from "react";
 
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
@@ -21,7 +21,7 @@ const useRefreshToken = () => {
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_LOGIN__TOKEN_URL}`,
+          url: `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_LOGIN_REFRESH_TOKEN_URL}`,
           headers: { 
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -47,7 +47,6 @@ const useRefreshToken = () => {
         console.log("Refresh token send to Access token " + JSON.stringify(response.data.access_token))
         return response.data.access_token
     }
-    
     return refresh;
 }
 

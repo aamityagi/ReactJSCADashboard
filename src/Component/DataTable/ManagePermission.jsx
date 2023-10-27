@@ -70,7 +70,7 @@ const permissionTableColumns = [
     {id: 2, name: "Digital Marketing"},
     {id: 3, name: "Services On Website"},
     {id: 4, name: "View Services Details"},
-    {id: 4, name: "Reports"},
+    {id: 5, name: "Reports"},
   ]
   // Search Data in Table
   const [searchRecords, setSearchRecords] = useState(data)

@@ -7,7 +7,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from './context/AuthProvider';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+<<<<<<< HEAD
 if (process.env.NODE_ENV === 'production') {
+=======
+if (process.env.REACT_APP_NODE_ENV === 'production') {
+>>>>>>> 4455e0a7f237a8e8e009e28264fd0da30a04d0a2
   disableReactDevTools();
 }
 const root = ReactDOM.createRoot(document.getElementById('root'));
