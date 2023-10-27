@@ -55,18 +55,23 @@ const Login = () => {
         .then((response) => {
           // Decode JWT Token and set in setData for Further use
           const accessToken = response?.data?.access_token;
-          const refreshAccessToken = response?.data?.refresh_token;
+          const refreshToken = response?.data?.refresh_token;
           // Access Token Decode and Get Data form Access Token Like Username and all
           const accessTokenDecode = jwtDecode(response?.data?.access_token);
           const username = accessTokenDecode.preferred_username;
           const roles = accessTokenDecode.realm_access.roles;
-          setAuth({username, roles, accessToken, refreshAccessToken});
+          setAuth({
+            username:username, 
+            roles:roles, 
+            accessToken: accessToken, 
+            refreshToken: refreshToken
+          });
           console.log(
           // "User Name:- " + username, 
           // ", User id:- " + userID, 
           ", User role:- " + roles, 
           ", User Access Token:- " + accessToken,
-          ", User Refresh Access Token:- " + refreshAccessToken
+          ", User Refresh Access Token:- " + refreshToken
           );
           roles.includes("user") ? navigate('/overview') : roles.includes("admin")  ? navigate('/dashboard') : navigate('/login')
           resetUser();

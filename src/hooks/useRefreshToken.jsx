@@ -3,8 +3,7 @@ import useAuth from "./useAuth";
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
     const { auth } = useAuth();
-    localStorage.setItem("Refresh Token", `${auth.refreshAccessToken}`);
-    const getRefreshTokenToLocalstorage = localStorage.getItem("Refresh Token");
+    const getRefreshTokenToLocalstorage = window.localStorage.getItem("refresh_token");
     console.log(getRefreshTokenToLocalstorage)
     const refresh = async () => {
         const qs = require('qs');
@@ -22,10 +21,10 @@ const useRefreshToken = () => {
           headers: { 
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          
+          withCredentials:true,
           data : data,
         };
-        const response = await axios.request(config,{withCredentials:true,})
+        const response = await axios.request(config)
         console.log("response refres token" + JSON.stringify(response?.data?.refresh_token))
         console.log("response Access token" + JSON.stringify(response?.data?.access_token))
         setAuth(prev => {
