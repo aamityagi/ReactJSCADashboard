@@ -42,13 +42,8 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword/>}></Route>
           <Route path='/Unauthorized' element={<Unauthorized/>}></Route>
           {/* After Login we want to Protect these routes on Roal Base */}
-<<<<<<< HEAD
-          <Route element={<PersistLogin/>}>
-            <Route path='/' element={<Layout role={auth.roles}/>}>
-=======
           <Route path='/' element={<Layout/>}>
             <Route element={<PersistLogin/>}>
->>>>>>> 4455e0a7f237a8e8e009e28264fd0da30a04d0a2
               <Route element={<RequireAuth allowedRoles={['admin']}/>}>
                 {/* Admin View Pages Start */}
                 <Route path='/dashboard' element={<Dashboard/>}></Route>
