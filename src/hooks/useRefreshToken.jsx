@@ -1,8 +1,5 @@
 import axios from "axios"
 import useAuth from "./useAuth";
-import { useState } from "react";
-import { useEffect } from "react";
-
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
     const { auth } = useAuth();
@@ -36,7 +33,7 @@ const useRefreshToken = () => {
             console.log(JSON.stringify(prev));
             // Get New Access token in the Refresh token
             console.log(response?.data?.acces_token)
-            localStorage.setItem("Refresh Token", `${response?.data?.refresh_token}`);
+            // localStorage.setItem("Refresh Token", `${response?.data?.refresh_token}`);
             return {
               ...prev, 
               roles: auth?.roles,
