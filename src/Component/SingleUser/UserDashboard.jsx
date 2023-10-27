@@ -1,7 +1,7 @@
 import React from 'react'
 import useRefreshToken from '../../hooks/useRefreshToken'
 const UserDashboard = () => {
-  const refresh = useRefreshToken()
+  const refreshToken = useRefreshToken();
   return (
     <>
       {/* Page Heading */}
@@ -9,7 +9,7 @@ const UserDashboard = () => {
         <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
       </div>
       {/* Content Row */}
-      <button onClick={()=> refresh()}>Refresh Token</button>
+      <button onClick={()=> refreshToken()}>Refresh Token</button>
       <div className="row">
         {/* Status */}
         <div className="col-xl-3 col-md-6 mb-4">

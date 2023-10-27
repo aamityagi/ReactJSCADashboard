@@ -6,10 +6,13 @@ import { useState } from "react";
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
     const { auth } = useAuth();
+    localStorage.setItem("Refresh Token", `${auth.refreshAccessToken}`);
+    const getRefreshTokenToLocalstorage = localStorage.getItem("Refresh Token");
+    console.log(getRefreshTokenToLocalstorage)
     const refresh = async () => {
         const qs = require('qs');
         let data = qs.stringify({
-          'refresh_token' : `${auth.refreshAccessToken}`,
+          'refresh_token' : `${getRefreshTokenToLocalstorage}`,
           'grant_type': 'refresh_token',
           'client_id': 'ca-website',
           'client_secret': 'nUSw2Rlf661q9b9iYwfUtj37nrHmWIi6' 
@@ -22,15 +25,27 @@ const useRefreshToken = () => {
           headers: { 
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          withCredentials:true,
+          
           data : data,
         };
-        const response = await axios.request(config)
+        const response = await axios.request(config,{withCredentials:true,})
+        console.log("response refres token" + JSON.stringify(response?.data?.refresh_token))
+        console.log("response Access token" + JSON.stringify(response?.data?.access_token))
         setAuth(prev => {
+            // Old Access Token and Refresh token in prev State
             console.log(JSON.stringify(prev));
-            console.log(response.data.refresh_token)
-            return {...prev, accesToken: auth?.refresh_token}
+            // Get New Access token in the Refresh token
+            console.log(response?.data?.acces_token)
+            localStorage.setItem("Refresh Token", `${response?.data?.refresh_token}`);
+            return {
+              ...prev, 
+              roles: auth?.roles,
+              accesToken: response?.data?.acces_token,
+              refreshAccessToken: response?.data?.refresh_token,
+            }
         });
+        console.log("Refresh token send to Access token " + JSON.stringify(response.data.access_token))
+        return response.data.access_token
     }
     
     return refresh;
