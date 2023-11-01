@@ -2,15 +2,17 @@ import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { Link } from 'react-router-dom'
 import {FcDownload} from 'react-icons/fc'
-const DataTableViewe = () => {
-  // columns of data base form API
+const ClientDataTableViewe = ({enquireData}) => {
+  console.log(enquireData.data);
+  const [customerId, setCustomerId] = useState();
+  console.log(customerId + "curomter id")
   const columns = [
-    {name:"Id", selector: row => row.id, sortable: true},
-    {name:"Name", selector: row => row.name, sortable: true},
-    {name:"Email Id", selector: row => row.emailId, sortable: true},
+    {name:"Sr.", selector: row => row.sr, sortable: true},
+    {name:"Name", selector: row => row.user_name, sortable: true},
+    {name:"Email Id", selector: row => row.user_email, sortable: true},
     {name:"Number", selector: row => row.mnumber, sortable: true},
-    {name:"Enquiry Types", selector: row => row.enquiryTypes, sortable: true},
-    {name:"Status", selector: row => row.enquiryStatus, sortable: true},
+    {name:"Enquiry Types", selector: row => row.enquiry_type, sortable: true},
+    {name:"Status", selector: row => row.payment_status, sortable: true},
     {name:"Action", selector: () => {
       return(
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#singleUserData">
@@ -20,20 +22,19 @@ const DataTableViewe = () => {
     }},
   ]
   // API Store Data
-  const data = [
-    {id: 1, name: "Demo 1", emailId: 'demo1@gmail.com', mnumber: 9999999999, enquiryTypes:"Paid", enquiryStatus:"pending"},
-    {id: 2, name: "Demo 2", emailId: 'demo2@gmail.com', mnumber: 8888888888, enquiryTypes:"Paid", enquiryStatus:"pending"},
-    {id: 3, name: "Demo 3", emailId: 'demo3@gmail.com', mnumber: 7777777777, enquiryTypes:"Un-Paid", enquiryStatus:"pending"},
-    {id: 4, name: "Demo 4", emailId: 'demo4@gmail.com', mnumber: 6666666666, enquiryTypes:"Paid", enquiryStatus:"pending"},
-    {id: 5, name: "Demo 5", emailId: 'demo5@gmail.com', mnumber: 5555555555, enquiryTypes:"Paid", enquiryStatus:"pending"},
-    {id: 6, name: "Demo 6", emailId: 'demo6@gmail.com', mnumber: 4444444444, enquiryTypes:"Enquiry Only", enquiryStatus:"pending"},
-    {id: 7, name: "Demo 1", emailId: 'demo1@gmail.com', mnumber: 9999999999, enquiryTypes:"Paid", enquiryStatus:"pending"},
-    {id: 8, name: "Demo 2", emailId: 'demo2@gmail.com', mnumber: 8888888888, enquiryTypes:"Paid", enquiryStatus:"pending"},
-    {id: 9, name: "Demo 3", emailId: 'demo3@gmail.com', mnumber: 7777777777, enquiryTypes:"Un-Paid", enquiryStatus:"pending"},
-    {id: 10, name: "Demo 4", emailId: 'demo4@gmail.com', mnumber: 6666666666, enquiryTypes:"Paid", enquiryStatus:"pending"},
-    {id: 11, name: "Demo 5", emailId: 'demo5@gmail.com', mnumber: 5555555555, enquiryTypes:"Paid", enquiryStatus:"pending"},
-    {id: 12, name: "Demo 6", emailId: 'demo6@gmail.com', mnumber: 4444444444, enquiryTypes:"Enquiry Only", enquiryStatus:"pending"},
-  ]
+  const customerApiData = enquireData.data.map((customer, i)=>{
+    return {
+      id: customer.id,
+      user_id: customer.user_id, 
+      sr: i + 1, 
+      user_name: customer.user_name, 
+      user_email: customer.user_email, 
+      mnumber: 9999999999, 
+      enquiry_type:customer.enquiry_type, 
+      payment_status:customer.payment_status}
+  });
+  console.log(customerApiData)
+  const data = [...customerApiData]
   // Search Data in Table
   const [searchRecords, setSearchRecords] = useState(data)
   function handelTableSearch(event){
@@ -46,7 +47,7 @@ const DataTableViewe = () => {
   return (
     <div>
       {/* Form Modal User Related Infor Start */}
-      <div className="modal fade" id="singleUserData" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="singleUserData" tabIndex="-1" aria-labelledby="singleUserData" aria-hidden="true">
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
@@ -126,7 +127,6 @@ const DataTableViewe = () => {
       <DataTable
         columns={columns}
         data = {searchRecords}
-        selectableRows
         fixedHeader
         pagination
       />
@@ -135,4 +135,4 @@ const DataTableViewe = () => {
   )
 }
 
-export default DataTableViewe
+export default ClientDataTableViewe

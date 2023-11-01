@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef} from 'react'
 import './Login.css'
 
-import { Link, useLocation, useNavigate} from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 // Custome Hooks for Auth and Login setup
@@ -10,14 +10,11 @@ import useInput from '../../hooks/useInput'
 import useToggleTruestDevice from '../../hooks/useToggleTruestDevice'
 
 const Login = () => {
-    const { setAuth } = useAuth();
+    const { setAuth} = useAuth();
     const userRef = useRef();
     const errRef = useRef();
     //Navigate  Url
     const navigate = useNavigate();
-    // const location = useLocation();
-    // const fromAdminDashboard = location.state?.from?.pathname || "/";
-    // const fromUserDasboard = location.state?.from?.pathname || "/";
     // Set Message
     const [errMsg, setErrMsg] = useState('');
     // Store User input in this process this useState
@@ -99,102 +96,103 @@ const Login = () => {
     }
     // Handle Login End
     // Toggle Persist Start
-    // const togglePersist = () => {
-    //   setPersist(prev => !prev);
-    // }
-    // useEffect(() => {
-    //   localStorage.setItem("persist", persist);
-    // }, [persist]);
+    const toggleTruestThisDevice = () => {
+      setCheckTruestDevice(prev => !prev);
+    }
+    useEffect(() => {
+      localStorage.setItem("persist", checkTruestDevice);
+    }, [checkTruestDevice]);
     // Toggle Persist End
   return (
-      <div className='bg-gradient-primary vh-100'>
+      <div className='vh-100'>
         <div className="container">
           {/* Outer Row */}
           <div className="row vh-100 d-flex justify-content-center align-items-center">
-            <div className="col-xl-10 col-lg-12 col-md-9">
-              <div className="card o-hidden border-0 shadow-lg my-5">
-                <div className="card-body p-0">
-                  {/* Nested Row within Card Body */}
-                  <div className="row">
-                    <div className="col-lg-6 d-none d-lg-block bg-login-image" />
-                    <div className="col-lg-6">
-                      <div className="p-5">
-                        <div className="text-center">
-                          <h1 className="h4 text-gray-900 mb-4">Welcome Back!</h1>
+          <div className="col-xl-10 col-lg-12 col-md-9">
+            <div className="card o-hidden border-0 shadow-lg my-5">
+              <div className="card-body p-0">
+                {/* Nested Row within Card Body */}
+                <div className="row">
+                  <div className="col-lg-6 d-none d-lg-block bg-login-image" />
+                  <div className="col-lg-6">
+                    <div className="p-5">
+                      <div className="text-center">
+                        <h1 className="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                      </div>
+                      <form className="user" onSubmit={handleLogin}>
+                        <p ref={errRef} className={errMsg ? "text-danger" : "d-none"} aria-live="assertive">
+                          {errMsg}
+                        </p>
+                        <div className="form-group">
+                          <input
+                            type="text"
+                            className="form-control form-control-user"
+                            id="userName"
+                            aria-describedby="emailHelp"
+                            placeholder="Enter Username"
+                            ref={userRef}
+                            required
+                            autoComplete='off'
+                            {...userAttribs}
+                          />
                         </div>
-                        <form className="user" onSubmit={handleLogin}>
-                          <p ref={errRef} className={errMsg ? "text-danger" : "d-none"} aria-live="assertive">
-                            {errMsg}
-                          </p>
-                          <div className="form-group">
-                            <input
-                              type="text"
-                              className="form-control form-control-user"
-                              id="userName"
-                              aria-describedby="emailHelp"
-                              placeholder="Enter Username"
-                              ref={userRef}
-                              required
-                              autoComplete='off'
-                              {...userAttribs}
-                            />
-                          </div>
-                          <div className="form-group">
-                            <input
-                              type="password"
-                              className="form-control form-control-user"
-                              id="password"
-                              placeholder="Password"
-                              value={password}
-                              onChange={e => setPassword(e.target.value)}
-                            />
-                          </div>
-                          <div className="form-group">
-                            <div className="custom-control custom-checkbox small">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="persist"
-                                onChange={setCheckTruestDevice}
-                                checked={checkTruestDevice}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="persist"
-                              >
-                                Trust This Device
-                              </label>
-                            </div>
-                          </div>
-                          {/* <div className="form-group">
-                            <div className="custom-control custom-checkbox small">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="customCheck"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="customCheck"
-                              >
-                                Remember Me
-                              </label>
-                            </div>
-                          </div> */}
-                          <button type='submit' className="btn btn-primary btn-user btn-block">Login</button>
-                        </form>
-                        <hr />
-                        <div className="text-center">
-                          <Link className="small" to={'/forgot-password'}>
-                            Forgot Password?
-                          </Link>
+                        <div className="form-group">
+                          <input
+                            type="password"
+                            className="form-control form-control-user"
+                            id="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                          />
                         </div>
+                        <div className="form-group">
+                          <div className="custom-control custom-checkbox small">
+                            <input
+                              type="checkbox"
+                              className="custom-control-input"
+                              id="persist"
+                              onChange={toggleTruestThisDevice}
+                              checked={checkTruestDevice}
+                            />
+                            <label
+                              className="custom-control-label"
+                              htmlFor="persist"
+                            >
+                              Trust This Device
+                            </label>
+                          </div>
+                        </div>
+                        {/* <div className="form-group">
+                          <div className="custom-control custom-checkbox small">
+                            <input
+                              type="checkbox"
+                              className="custom-control-input"
+                              id="customCheck"
+                            />
+                            <label
+                              className="custom-control-label"
+                              htmlFor="customCheck"
+                            >
+                              Remember Me
+                            </label>
+                          </div>
+                        </div> */}
+                        <button type='submit' className="btn btn-primary btn-user btn-block">Login</button>
+                      </form>
+                      <hr />
+                      <div className="text-center">
+                        <Link className="small" to={'/forgot-password'}>
+                          Forgot Password?
+                        </Link>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+            
           </div>
         </div>
       </div>

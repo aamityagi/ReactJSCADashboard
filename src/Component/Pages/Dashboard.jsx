@@ -1,6 +1,31 @@
-import React from 'react'
-import DataTableViewe from '../DataTable/DataTableViewe'
+import React, { useEffect, useState } from 'react'
+import ClientDataTableViewe from '../DataTable/ClientDataTableViewe'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 const Dashboard = () => {
+  const axiosPrivate = useAxiosPrivate()
+  const [enquireData, setEnquireData] = useState();
+  useEffect(()=>{
+    let isMounted = true;
+    const controller = new AbortController();
+    const getEnquire = async () => {
+      try{
+        const response = await axiosPrivate.get(`${process.env.REACT_APP_Enquires}`,{
+          signal: controller.signal
+        });
+        console.log(response.data)
+        isMounted && setEnquireData(response.data);
+      }
+      catch(error) {
+        console.log(error)
+      }
+    }
+    getEnquire();
+    // Clean Up function in useEffect
+    return () =>{
+      isMounted = false;
+      controller.abort();
+    }
+  },[]);
   return (
     <>
   
@@ -92,7 +117,10 @@ const Dashboard = () => {
             </div>
             {/* Data Table Start */}
             <div className='col-md-12'>
-              <DataTableViewe/>
+              {enquireData?.data 
+                ? <ClientDataTableViewe enquireData={enquireData}/> 
+                : "Data Not Found"}
+              
             </div>
           </div>
                   

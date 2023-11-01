@@ -44,7 +44,7 @@ const TopHeader = () => {
                 className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown"
               >
-                <Link className="dropdown-item" to="#" data-toggle="modal" data-target="#singleUserData">
+                <Link className="dropdown-item" to="#" data-toggle="modal" data-target="#userProfile">
                   <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400" />
                   Profile
                 </Link>
@@ -73,7 +73,7 @@ const TopHeader = () => {
     
     {/* Edit User Profile Start */}
     {/* Form Modal User Related Infor Start */}
-    <div className="modal fade" id="singleUserData" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div className="modal fade" id="userProfile" tabIndex="-1" aria-labelledby="userProfile" aria-hidden="true">
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-body">

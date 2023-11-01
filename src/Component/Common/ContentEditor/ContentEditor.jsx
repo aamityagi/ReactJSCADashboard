@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import JoditEditor from 'jodit-react';
 
-const ContentEditor = ({placeholder }) => {
+const ContentEditor = ({placeholder}) => {
     const editor = useRef(null);
     const [content, setContent] = useState('');
     const config = {

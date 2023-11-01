@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import {AiOutlineDelete, AiOutlineEdit} from 'react-icons/ai'
-const ManageServices = () => {
-  // columns of data base form API
+const ManageServices = ({servicesData}) => {
+// columns of data base form API
 const columns = [
   {name:"Service Type", selector: row => row.serviceType, sortable: true},
   {name:"Service Name", selector: row => row.serviceName, sortable: true},
@@ -12,7 +12,7 @@ const columns = [
   {name:"Action", selector: () => {
     return(
       <>
-      <button type="button" onClick={handleUpdateService(data.i)} className="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#managePermission">
+      <button type="button" className="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#managePermission">
         <AiOutlineEdit/>
       </button>
       <button type="button" className="btn btn-danger btn-sm" data-toggle="modal" data-target="#managePermission">
@@ -22,54 +22,20 @@ const columns = [
     )
   }},
 ]
-// Update Manage Single Services Data
-function handleUpdateService(i){
-  
-}
 // API Store Data
-const data = [
-  {id: 1, serviceType: "ITR", serviceName: 'ITR 1', serviceAmount: "2000 RS", serviceDiscount:"10%", finalAmount:"1800 RS"},
-]
-// Permission Table Colum
-const permissionTableColumns = [
-  {name:"Permisstion", selector: row => row.name, sortable: true},
-  {name:"View", selector: () => {
-      return(
-      <div className="form-check">
-          <input className="form-check-input" type="checkbox" name="exampleRadios" id="exampleCheckBox2" value="option1" />
-      </div>
-      )
-    }},
-  {name:"Edit", selector: () => {
-      return(
-          <div className="form-check text-center">
-              <input className="form-check-input" type="checkbox" name="exampleRadios" id="exampleCheckBox2" value="option2" />
-          </div>
-      )
-    }},
-  {name:"Delete", selector: () => {
-      return(
-      <div className="form-check">
-          <input className="form-check-input" type="checkbox" name="exampleRadios" id="exampleCheckBox2" value="option4" />
-      </div>
-      )
-    }},
-  {name:"Admin", selector: () => {
-      return(
-      <div className="form-check">
-          <input className="form-check-input" type="checkbox" name="exampleRadios" id="exampleCheckBox2" value="option5" />
-      </div>
-      )
-    }},
-]
-// Permission Table Data 
-const permissionTableData = [
-  {id: 1, name: "Website Component"},
-  {id: 2, name: "Digital Marketing"},
-  {id: 3, name: "Services On Website"},
-  {id: 4, name: "View Services Details"},
-  {id: 4, name: "Reports"},
-]
+const servicesApiData = servicesData.data.map((service, i)=>{
+  return {
+    id: service.id, 
+    serviceType: service.service_type, 
+    serviceName: service.service_name, 
+    serviceAmount: service.service_price, 
+    serviceDiscount: service.discount, 
+    finalAmount: service.service_type
+  }
+});
+// API Store Data
+const data = [...servicesApiData]
+
 // Search Data in Table
 const [searchRecords, setSearchRecords] = useState(data)
 function handelTableSearch(event){

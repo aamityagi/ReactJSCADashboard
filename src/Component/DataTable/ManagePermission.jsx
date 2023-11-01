@@ -83,7 +83,7 @@ const permissionTableColumns = [
   return (
     <div>
       {/* Form Modal User Related Infor Start */}
-      <div className="modal fade" id="managePermission" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="managePermission" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">

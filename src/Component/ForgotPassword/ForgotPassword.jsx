@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const ForgotPassword = () => {
   return (
-    <div className='bg-gradient-primary vh-100'>
+    <div className='vh-100'>
       <div className="container">
         {/* Outer Row */}
         <div className="row vh-100 d-flex justify-content-center align-items-center">
