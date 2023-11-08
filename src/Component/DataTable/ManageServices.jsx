@@ -1,7 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
 import {AiOutlineDelete, AiOutlineEdit} from 'react-icons/ai'
-const ManageServices = ({servicesData}) => {
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+const ManageServices = (props) => {
+  const axiosPrivate = useAxiosPrivate()
+  const [loading, setLoading] = useState();
+  const editByID = async(id)=>{
+    const response = await axiosPrivate.get(`${process.env.REACT_APP_GET_ALL_Services_By_ID}${id}`)
+    props.setEditServiceData(response)
+    props.onComplete();
+  }
+  const deleteByID = async(id)=>{
+    try{
+      let yes = window.confirm("Do you Want to Delete");
+      if(!yes) return;
+      setLoading(true)
+      await axiosPrivate.delete(`${process.env.REACT_APP_GET_ALL_Services_By_ID}${id}`);
+      props.onComplete(); 
+    }catch(error){
+      console.log(error)
+    }finally{
+      setLoading(false)
+    }
+  }
 // columns of data base form API
 const columns = [
   {name:"Service Type", selector: row => row.serviceType, sortable: true},
@@ -9,21 +30,33 @@ const columns = [
   {name:"Amount", selector: row => row.serviceAmount, sortable: true},
   {name:"Discount", selector: row => row.serviceDiscount, sortable: true},
   {name:"Final Amount", selector: row => row.finalAmount, sortable: true},
-  {name:"Action", selector: () => {
-    return(
-      <>
-      <button type="button" className="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#managePermission">
-        <AiOutlineEdit/>
-      </button>
-      <button type="button" className="btn btn-danger btn-sm" data-toggle="modal" data-target="#managePermission">
-        <AiOutlineDelete/>
-      </button>
-      </>
-    )
-  }},
+  {name:"Action", 
+    cell: (row) => {
+      return(
+        <>
+          <button 
+            onClick={()=> editByID(row.id)}
+            type="button" 
+            className="btn btn-success btn-sm mr-2" 
+            data-toggle="modal" 
+            data-target="#addServices">
+            <AiOutlineEdit/>
+          </button>
+          <button 
+            onClick={()=> deleteByID(row.id)}
+            type="button" 
+            className="btn btn-danger btn-sm" 
+            data-toggle="modal" 
+            data-target="#managePermission">
+            <AiOutlineDelete/>
+          </button>
+        </>
+      )
+    }
+  }
 ]
 // API Store Data
-const servicesApiData = servicesData.data.map((service, i)=>{
+const servicesApiData = props.servicesData.data.map((service, i)=>{
   return {
     id: service.id, 
     serviceType: service.service_type, 
@@ -33,25 +66,16 @@ const servicesApiData = servicesData.data.map((service, i)=>{
     finalAmount: service.service_type
   }
 });
-// API Store Data
-const data = [...servicesApiData]
-
-// Search Data in Table
-const [searchRecords, setSearchRecords] = useState(data)
-function handelTableSearch(event){
-  const newData = data.filter(row => {
-    return row.name.toLowerCase().includes(event.target.value.toLowerCase());
-  })
-  setSearchRecords(newData)
-}
   return (
     <>
       {/* Table Start */}
       <DataTable
         columns={columns}
-        data = {searchRecords}
-        fixedHeader
+        data = {servicesApiData}
         pagination
+        fixedHeader
+        fixedHeaderScrollHeight='450px'
+        highlightOnHover
       />
       {/* Table End */}
     </>

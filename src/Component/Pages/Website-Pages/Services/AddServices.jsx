@@ -4,8 +4,13 @@ import {GrAdd} from 'react-icons/gr'
 import {AiOutlineDelete} from 'react-icons/ai'
 import ContentEditor from '../../../Common/ContentEditor/ContentEditor'
 import useAxiosPrivate from '../../../../hooks/useAxiosPrivate'
-const AddServices = () => {
+const AddServices = (props) => {
   const axiosPrivate = useAxiosPrivate()
+  const editFormData = props.editServiceData
+  console.log(editFormData)
+  const [loading, setLoading] = useState();
+  const [error, setError] = useState();
+  const [editorDescription, setEditorDescription] = useState();
   const [formValue, setFormValue] = useState({
     serviceType: '',
     serviceName: '',
@@ -13,14 +18,19 @@ const AddServices = () => {
     serviceAmount: '',
     servicesOfferType: '',
     serviceOffer: '',
-    fullDescription: ''
+    fullDescription: '',
+    faq:[{
+      enterQuestion:"",
+      enterAnswer:""
+    }]
   })
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setFormValue({...formValue, [name]: value});
   }
-  const handleSubmit =  async (e) => {
+  // Create Service
+  const createService =  async (e) => {
     e.preventDefault();
     const allInputValue = {
       service_type: formValue.serviceType,
@@ -29,11 +39,47 @@ const AddServices = () => {
       service_price: formValue.serviceAmount,
       discount_type: formValue.servicesOfferType,
       discount: formValue.serviceOffer,
-      description: formValue.fullDescription,
+      description: editorDescription,
+      faq: QuestionAnswer.map((QA)=> {
+        return ({
+          question: QA.enterQuestion,
+          answer:QA.enterAnswer
+        })
+      })
     };
     
     try{
+      setLoading(true)
       await axiosPrivate.post(`${process.env.REACT_APP_Services}`, allInputValue)
+      props.onComplete();
+      setFormValue('')
+    }
+    catch(error) {
+      setError(error)
+    }
+    finally{
+      setLoading(false)
+    }
+  }
+  const updateService =async(e) => {
+    e.preventDefault();
+    const allInputValue = {
+      service_type: formValue.serviceType,
+      service_name: formValue.serviceName,
+      small_description: formValue.smallDescription,
+      service_price: formValue.serviceAmount,
+      discount_type: formValue.servicesOfferType,
+      discount: formValue.serviceOffer,
+      description: editorDescription,
+    };
+    
+    try{
+      await axiosPrivate.put(`${process.env.REACT_APP_GET_ALL_Services_By_ID}${editFormData.data.data.id}`, allInputValue)
+      .then(response => {
+        if(response?.status === 201){
+          window.location.reload(true)
+        }
+      })
     }
     catch(error) {
       console.log(error)
@@ -83,9 +129,21 @@ const handleadRemoveQuestionAnswer = (i) => {
                   </div>
                   {/* Service Amount and After Discount End */}
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form>
                   <div className='row'>
                     {/* Service Amount and After Discount Start */}
+                      {props?.editServiceData?.data 
+                        ? <div className="form-group col-md-4 d-none">
+                            <input
+                              type="text"
+                              required
+                              name='serviceId'
+                              value={editFormData?.data.data.id}
+                              placeholder={`${editFormData?.data.data.id}`}
+                            />
+                          </div>
+                        : <></>
+                      }
                     <div className="form-group col-md-4">
                       <label className='small'>Service Type</label>
                       <input
@@ -162,7 +220,10 @@ const handleadRemoveQuestionAnswer = (i) => {
                   <div className='row'>
                     <div className='col-md-12 mb-4'>
                       <label className='small'>Enter Full Description</label>
-                      <ContentEditor/>
+                      <ContentEditor 
+                        // editDescription={editFormData.data.data.description}
+                        setEditorDescription={setEditorDescription}
+                        placeholder={"Enter Services Content"} />
                     </div>
                   </div>
                   {/* Text Editor End */}
@@ -209,7 +270,16 @@ const handleadRemoveQuestionAnswer = (i) => {
                     </div>
                   </div>
                   {/* Add Q&A End */}
-                  <button type="submit" className="btn btn-primary">Save changes</button>
+                  <div className='row'>
+                    <div className='col-md-12 text-center'>
+                      {loading 
+                        ? "Loading...." 
+                        :<button type="button" onClick={createService} className="btn btn-primary">
+                            Create Service
+                          </button>
+                        } 
+                    </div>
+                  </div>
                 </form>
             </div>
           </div>

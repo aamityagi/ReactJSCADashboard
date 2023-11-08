@@ -2,31 +2,24 @@ import React, { useEffect, useState } from 'react'
 import AddServices from './Services/AddServices'
 import ManageServices from '../../DataTable/ManageServices'
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate'
+import {AiOutlineAppstoreAdd} from 'react-icons/ai'
 
 const Services = () => {
   const axiosPrivate = useAxiosPrivate()
-  const [servicesData, ServicesData] = useState();
-  useEffect(()=>{
-    let isMounted = true;
-    const controller = new AbortController();
-    const getEnquire = async () => {
-      try{
-        const response = await axiosPrivate.get(`${process.env.REACT_APP_Services}`,{
-          signal: controller.signal
-        });
-        console.log(response.data)
-        isMounted && ServicesData(response.data);
-      }
-      catch(error) {
-        console.log(error)
-      }
+  const [servicesData, setServicesData] = useState();
+  const [editServiceData, setEditServiceData] = useState();
+  // When Find data is Updated AutoRefresh
+  async function fetchServiceData() {
+    try{
+      const response = await axiosPrivate.get(`${process.env.REACT_APP_Services}`);
+      setServicesData(response.data)
     }
-    getEnquire();
-    // Clean Up function in useEffect
-    return () =>{
-      isMounted = false;
-      controller.abort();
+    catch(error) {
+      console.log(error)
     }
+  }
+  useEffect( ()=>{
+    fetchServiceData();
   },[]);
   return (
     <>
@@ -37,13 +30,36 @@ const Services = () => {
       <div className='row'>
         {/* Add Services Start */}
         <div className='col-md-12'>
-          <AddServices/>
+          <AddServices 
+          editServiceData={editServiceData}
+          onComplete={()=>{
+            fetchServiceData();
+          }}/>
         </div>
         {/* Add Services End */}
         {/* Services Table Edit and Delete Start */}
-        {servicesData?.data 
-            ? <ManageServices servicesData={servicesData}/> 
-            : "Data Not Found"}
+        {servicesData?.data.length === 0 
+        ? <>
+            <div className="alert alert-secondary text-center" role="alert">
+              <h4>"No Service Create"</h4>
+              <h6>`Clicke On <AiOutlineAppstoreAdd/> Add Service, Then please Create your First Service` </h6>
+            </div>
+          </>
+          : servicesData?.data 
+              ? <ManageServices 
+              servicesData={servicesData} 
+              onComplete={()=>{
+                fetchServiceData()
+              }}
+              setEditServiceData={setEditServiceData}
+              /> 
+              : <>
+                  <div className="alert alert-secondary text-center" role="alert">
+                    <h4>"Data Fetching From Server"</h4>
+                    <h6>Please Wait For Some Time</h6>
+                  </div>
+                </>
+              }
         {/* Services Table Edit and Delete End */}
       </div>
     </>

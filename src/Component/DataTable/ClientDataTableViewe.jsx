@@ -2,10 +2,24 @@ import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { Link } from 'react-router-dom'
 import {FcDownload} from 'react-icons/fc'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 const ClientDataTableViewe = ({enquireData}) => {
-  console.log(enquireData.data);
-  const [customerId, setCustomerId] = useState();
-  console.log(customerId + "curomter id")
+  const axiosPrivate = useAxiosPrivate()
+  const [editData, setEditData] = useState();
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState("")
+  const edit = async(id)=>{
+    try{
+      setLoading(true)
+      const response = await axiosPrivate.get(`${process.env.REACT_APP_GET_ALL_Enquiries_By_ID}${id}`)
+      setLoading(false)
+      setEditData(response.data)
+    }
+    catch(err){
+      setLoading(false)
+      setApiError(err)
+    }
+  }
   const columns = [
     {name:"Sr.", selector: row => row.sr, sortable: true},
     {name:"Name", selector: row => row.user_name, sortable: true},
@@ -13,16 +27,24 @@ const ClientDataTableViewe = ({enquireData}) => {
     {name:"Number", selector: row => row.mnumber, sortable: true},
     {name:"Enquiry Types", selector: row => row.enquiry_type, sortable: true},
     {name:"Status", selector: row => row.payment_status, sortable: true},
-    {name:"Action", selector: () => {
-      return(
-        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#singleUserData">
-          Edit
-        </button>
-      )
-    }},
+    {name:"Action", 
+      cell: (row) => {
+        return(
+          <>
+            <button 
+              onClick={()=> edit(row.id)}
+              type="button" 
+              className="btn btn-success btn-sm mr-2" 
+              data-toggle="modal" data-target="#singleUserData">
+              Edit
+            </button>
+          </>
+        )
+      }
+    }
   ]
   // API Store Data
-  const customerApiData = enquireData.data.map((customer, i)=>{
+  const customerApiData = enquireData?.data.results.map((customer, i)=>{
     return {
       id: customer.id,
       user_id: customer.user_id, 
@@ -33,16 +55,6 @@ const ClientDataTableViewe = ({enquireData}) => {
       enquiry_type:customer.enquiry_type, 
       payment_status:customer.payment_status}
   });
-  console.log(customerApiData)
-  const data = [...customerApiData]
-  // Search Data in Table
-  const [searchRecords, setSearchRecords] = useState(data)
-  function handelTableSearch(event){
-    const newData = data.filter(row => {
-      return row.name.toLowerCase().includes(event.target.value.toLowerCase());
-    })
-    setSearchRecords(newData)
-  }
   
   return (
     <div>
@@ -60,8 +72,8 @@ const ClientDataTableViewe = ({enquireData}) => {
               <div className='row'>
                 <div className='col-md-12'>
                   <div className="alert alert-secondary row m-0" role="alert">
-                    <div className='col-md-4'>Name:- <span className='bold'>Demo</span></div>
-                    <div className='col-md-4'>Email Id:- <span className='bold'>Demo@Gmail.com</span></div>
+                    <div className='col-md-4'>Name:- <span className='bold'>{editData?.data?.user_name}</span></div>
+                    <div className='col-md-4'>Email Id:- <span className='bold'>{editData?.data?.user_email}</span></div>
                     <div className='col-md-4'>Number:- <span className='bold'>9999999999</span></div>
                   </div>
                 </div>
@@ -120,13 +132,18 @@ const ClientDataTableViewe = ({enquireData}) => {
         </div>
       </div>
       {/* Form Modal User Related Infor End */}
-      {/* Table Search field Start */}
-      <div className='text-end'><input type='text' onChange={handelTableSearch}/></div>
-      {/* Table Search field End */}
       {/* Table Start */}
+      {/* Set API Error */}
+      {apiError && (
+        <h2>{apiError}</h2>
+      )}
+      {/* Set Table Loading */}
+      {loading && (
+        <h2>Loading Data...</h2>
+      )}
       <DataTable
         columns={columns}
-        data = {searchRecords}
+        data = {customerApiData}
         fixedHeader
         pagination
       />

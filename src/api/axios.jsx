@@ -1,12 +1,11 @@
 import axios from "axios";
-const baseURL = `${process.env.REACT_APP_API_URL}`
-const getPostURL = `${process.env.REACT_APP_GET_POST_API_URL}`
+const baseApiURL = `${process.env.REACT_APP_API_URL}`
 export default axios.create({
-    baseURL: getPostURL,
+    baseURL: baseApiURL,
 });
 
 export const axiosPrivate = axios.create({
-    url: getPostURL,
+    url: baseApiURL,
     headers: { 
     'Content-Type': 'application/json'
     },

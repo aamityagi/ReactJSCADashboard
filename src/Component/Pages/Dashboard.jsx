@@ -12,7 +12,6 @@ const Dashboard = () => {
         const response = await axiosPrivate.get(`${process.env.REACT_APP_Enquires}`,{
           signal: controller.signal
         });
-        console.log(response.data)
         isMounted && setEnquireData(response.data);
       }
       catch(error) {
@@ -25,7 +24,7 @@ const Dashboard = () => {
       isMounted = false;
       controller.abort();
     }
-  },[]);
+  },[axiosPrivate]);
   return (
     <>
   
@@ -117,9 +116,15 @@ const Dashboard = () => {
             </div>
             {/* Data Table Start */}
             <div className='col-md-12'>
-              {enquireData?.data 
-                ? <ClientDataTableViewe enquireData={enquireData}/> 
-                : "Data Not Found"}
+              {enquireData?.data.total === 0
+              ? <>
+                  <div class="alert alert-secondary" role="alert">
+                    <h2>"Sorry No Enquery Found..."</h2>
+                  </div>
+                </>
+              : enquireData?.data 
+                  ? <ClientDataTableViewe enquireData={enquireData}/> 
+                  : "Data Not Found"}
               
             </div>
           </div>
