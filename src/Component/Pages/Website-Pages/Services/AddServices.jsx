@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {AiOutlineAppstoreAdd} from 'react-icons/ai'
 import {GrAdd} from 'react-icons/gr'
 import {AiOutlineDelete} from 'react-icons/ai'
@@ -6,48 +6,90 @@ import ContentEditor from '../../../Common/ContentEditor/ContentEditor'
 import useAxiosPrivate from '../../../../hooks/useAxiosPrivate'
 const AddServices = (props) => {
   const axiosPrivate = useAxiosPrivate()
-  const editFormData = props.editServiceData
-  console.log(editFormData)
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
+  const [editFormData, setEditFormData] = useState()
+  useEffect(()=>{
+    setEditFormData(props.editServiceData)
+  },[props]);
   const [editorDescription, setEditorDescription] = useState();
-  const [formValue, setFormValue] = useState({
-    serviceType: '',
-    serviceName: '',
-    smallDescription: '',
-    serviceAmount: '',
-    servicesOfferType: '',
-    serviceOffer: '',
-    fullDescription: '',
-    faq:[{
-      enterQuestion:"",
-      enterAnswer:""
-    }]
-  })
+  console.log(editFormData)
+  const [formValue, setFormValue] = useState(
+    {
+      serviceType: '',
+      serviceName: '',
+      smallDescription: '',
+      serviceAmount: '',
+      servicesOfferType:'',
+      serviceOffer:'',
+      fullDescription: '',
+      faq:[{
+        enterQuestion:"",
+        enterAnswer:""
+      }]
+    }
+  )
+  useEffect(()=>{
+    setFormValue(
+      {
+        serviceType: editFormData?.data?.data.service_type || "",
+        serviceName: '',
+        smallDescription: '',
+        serviceAmount: '',
+        servicesOfferType:'',
+        serviceOffer:'',
+        fullDescription: '',
+        faq:[{
+          enterQuestion:"",
+          enterAnswer:""
+        }]
+      }
+    )
+  },[editFormData]);
+  console.log("Form Data " + JSON.stringify(formValue))
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setFormValue({...formValue, [name]: value});
   }
+  // Let's work together Use State
+  const [QuestionAnswer, setQuestionAnswer] = useState([{enterQuestion:'',enterAnswer: ''}])
+
+  // Let Us Work To Gether Start
+  const handleQandAInput = (e, i) => {
+    const {name, value} = e.target;
+    const list = [...QuestionAnswer];
+    list[i][name] = value; 
+    setQuestionAnswer(list);
+  }
+  const handleadAddQuestionAnswer = () => {
+    setQuestionAnswer([...QuestionAnswer, {enterQuestion:'',enterAnswer: ''}]);
+  }
+  const handleadRemoveQuestionAnswer = (i) => {
+      const list = [...QuestionAnswer];
+      list.splice(i,1);
+      setQuestionAnswer(list);
+  }
+  // Let Us Work To Gether End
+  // Form data 
+  const allInputValue = {
+    service_type: formValue.serviceType,
+    service_name: formValue.serviceName,
+    small_description: formValue.smallDescription,
+    service_price: formValue.serviceAmount,
+    discount_type: formValue.servicesOfferType,
+    discount: formValue.serviceOffer,
+    description: editorDescription,
+    faq: QuestionAnswer.map((QA)=> {
+      return ({
+        question: QA.enterQuestion,
+        answer:QA.enterAnswer
+      })
+    })
+  };
   // Create Service
   const createService =  async (e) => {
     e.preventDefault();
-    const allInputValue = {
-      service_type: formValue.serviceType,
-      service_name: formValue.serviceName,
-      small_description: formValue.smallDescription,
-      service_price: formValue.serviceAmount,
-      discount_type: formValue.servicesOfferType,
-      discount: formValue.serviceOffer,
-      description: editorDescription,
-      faq: QuestionAnswer.map((QA)=> {
-        return ({
-          question: QA.enterQuestion,
-          answer:QA.enterAnswer
-        })
-      })
-    };
-    
     try{
       setLoading(true)
       await axiosPrivate.post(`${process.env.REACT_APP_Services}`, allInputValue)
@@ -63,47 +105,14 @@ const AddServices = (props) => {
   }
   const updateService =async(e) => {
     e.preventDefault();
-    const allInputValue = {
-      service_type: formValue.serviceType,
-      service_name: formValue.serviceName,
-      small_description: formValue.smallDescription,
-      service_price: formValue.serviceAmount,
-      discount_type: formValue.servicesOfferType,
-      discount: formValue.serviceOffer,
-      description: editorDescription,
-    };
-    
     try{
-      await axiosPrivate.put(`${process.env.REACT_APP_GET_ALL_Services_By_ID}${editFormData.data.data.id}`, allInputValue)
-      .then(response => {
-        if(response?.status === 201){
-          window.location.reload(true)
-        }
-      })
+      await axiosPrivate.put(`${process.env.REACT_APP_GET_ALL_Services_By_ID}${editFormData?.data?.data?.id}`, allInputValue)
     }
     catch(error) {
       console.log(error)
     }
   }
-  // Let's work together Use State
-  const [QuestionAnswer, setQuestionAnswer] = useState([{enterQuestion:'',enterAnswer: ''}])
-
-  // Let Us Work To Gether Start
-  const handleQandAInput = (e, i) => {
-    const {name, value} = e.target;
-    const list = [...QuestionAnswer];
-    list[i][name] = value; 
-    setQuestionAnswer(list);
-}
-const handleadAddQuestionAnswer = () => {
-  setQuestionAnswer([...QuestionAnswer, {enterQuestion:'',enterAnswer: ''}]);
-}
-const handleadRemoveQuestionAnswer = (i) => {
-    const list = [...QuestionAnswer];
-    list.splice(i,1);
-    setQuestionAnswer(list);
-}
-// Let Us Work To Gether End
+  
   return (
     <>
       {/* Add Services Form */}
@@ -131,19 +140,6 @@ const handleadRemoveQuestionAnswer = (i) => {
                 </div>
                 <form>
                   <div className='row'>
-                    {/* Service Amount and After Discount Start */}
-                      {props?.editServiceData?.data 
-                        ? <div className="form-group col-md-4 d-none">
-                            <input
-                              type="text"
-                              required
-                              name='serviceId'
-                              value={editFormData?.data.data.id}
-                              placeholder={`${editFormData?.data.data.id}`}
-                            />
-                          </div>
-                        : <></>
-                      }
                     <div className="form-group col-md-4">
                       <label className='small'>Service Type</label>
                       <input
@@ -286,11 +282,6 @@ const handleadRemoveQuestionAnswer = (i) => {
         </div>
       </div>
       {/* Add Services End */}
-      {/* Add Services Button Start */}
-        <button type="button" className="btn btn-primary btn-sm float-right mb-4" data-toggle="modal" data-target="#addServices">
-          <AiOutlineAppstoreAdd/> Add Services
-        </button>
-      {/* Add Services Button End */}
     </>
   )
 }
