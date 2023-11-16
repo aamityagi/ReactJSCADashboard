@@ -3,11 +3,15 @@ import AddServices from './Services/AddServices'
 import ManageServices from '../../DataTable/ManageServices'
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate'
 import {AiOutlineAppstoreAdd} from 'react-icons/ai'
-
 const Services = () => {
   const axiosPrivate = useAxiosPrivate()
   const [servicesData, setServicesData] = useState();
-  const [editServiceData, setEditServiceData] = useState();
+  const [editServiceData, setEditServiceData ] = useState();
+  // Bootstrap Modal Box
+  const [showModal, setShowModal] = useState(false);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
   // When Find data is Updated AutoRefresh
   async function fetchServiceData() {
     try{
@@ -30,11 +34,23 @@ const Services = () => {
       <div className='row'>
         {/* Add Services Start */}
         <div className='col-md-12'>
+          {/* Add Services Button Start */}
+            <button type="button" 
+              onClick={()=>{
+                handleShow();
+                setEditServiceData();
+              }} className="btn btn-primary btn-sm float-right mb-4" data-toggle="modal" data-target="#addServices">
+              <AiOutlineAppstoreAdd/> Add Services
+            </button>
+          {/* Add Services Button End */}
           <AddServices 
-          editServiceData={editServiceData}
-          onComplete={()=>{
-            fetchServiceData();
-          }}/>
+            show={showModal} 
+            handleClose={handleClose}
+            editServiceData={editServiceData}
+            onComplete={()=>{
+              fetchServiceData();
+            }}
+          />
         </div>
         {/* Add Services End */}
         {/* Services Table Edit and Delete Start */}
@@ -47,12 +63,13 @@ const Services = () => {
           </>
           : servicesData?.data 
               ? <ManageServices 
-              servicesData={servicesData} 
-              onComplete={()=>{
-                fetchServiceData()
-              }}
-              setEditServiceData={setEditServiceData}
-              /> 
+                  servicesData={servicesData} 
+                  setEditServiceData={setEditServiceData}
+                  modalOpen={handleShow}
+                  onComplete={()=>{
+                    fetchServiceData()
+                  }}
+                /> 
               : <>
                   <div className="alert alert-secondary text-center" role="alert">
                     <h4>"Data Fetching From Server"</h4>

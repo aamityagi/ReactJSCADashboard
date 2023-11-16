@@ -118,7 +118,7 @@ const Dashboard = () => {
             <div className='col-md-12'>
               {enquireData?.data.total === 0
               ? <>
-                  <div class="alert alert-secondary" role="alert">
+                  <div className="alert alert-secondary" role="alert">
                     <h2>"Sorry No Enquery Found..."</h2>
                   </div>
                 </>

@@ -6,9 +6,9 @@ const ManageServices = (props) => {
   const axiosPrivate = useAxiosPrivate()
   const [loading, setLoading] = useState();
   const editRowData = async (id) =>{
-      const res = await axiosPrivate.get(`${process.env.REACT_APP_GET_ALL_Services_By_ID}${id}`);
-      props.setEditServiceData(res)
-    }
+    const res = await axiosPrivate.get(`${process.env.REACT_APP_GET_ALL_Services_By_ID}${id}`);
+    props.setEditServiceData(res.data)
+  }
   const deleteByID = async(id)=>{
     try{
       let yes = window.confirm("Do you Want to Delete");
@@ -34,7 +34,10 @@ const columns = [
       return(
         <>
           <button 
-            onClick={()=>editRowData(row.id)}
+            onClick={()=>{
+              props.modalOpen();
+              editRowData(row.id)
+            }}
             type="button" 
             className="btn btn-success btn-sm mr-2" 
             data-toggle="modal" 
@@ -42,7 +45,7 @@ const columns = [
             <AiOutlineEdit/>
           </button>
           <button 
-            onClick={()=> deleteByID(row)}
+            onClick={()=> deleteByID(row.id)}
             type="button" 
             className="btn btn-danger btn-sm" 
             data-toggle="modal" 
